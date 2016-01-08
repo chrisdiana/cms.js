@@ -22,13 +22,13 @@ $(function() {
 		],
 
 		// Posts folder name
-		postsFolder: 'posts',
+		postsFolder: 'demo/posts',
 
 		// Homepage posts snippet length
 		postSnippetLength: 120,
 
 		// Pages folder name
-		pagesFolder: 'pages',
+		pagesFolder: 'demo/pages',
 
 		// Site fade speed
 		fadeSpeed: 300,
