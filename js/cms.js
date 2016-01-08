@@ -37,9 +37,11 @@ var CMS = {
 			];
 		},
 		mode: 'Github',
-		githubSettings: {
+		githubUserSettings: {
 			username: 'yourusername',
 			repo: 'yourrepo',
+		},
+		githubSettings: {
 			branch: 'gh-pages',
 			host: 'https://api.github.com'
 		}
@@ -280,8 +282,9 @@ var CMS = {
 		}
 
 		if(CMS.settings.mode == 'Github') {
-			var gs = CMS.settings.githubSettings;
-			url = gs.host + '/repos/' + gs.username + '/' + gs.repo + '/contents' + '?ref=' + gs.branch;
+			var gus = CMS.settings.githubUserSettings,
+				gs = CMS.settings.githubSettings;
+			url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents' + '?ref=' + gs.branch;
 		} else {
 			url = folder;
 		}
