@@ -35,6 +35,15 @@ var CMS = {
 				{ attr: '.cms_tagline', value: CMS.settings.siteTagline},
 				{ attr: '.cms_footer_text', value: CMS.settings.footerText}
 			];
+		},
+		mode: 'Github',
+		githubUserSettings: {
+			username: 'yourusername',
+			repo: 'yourrepo',
+		},
+		githubSettings: {
+			branch: 'gh-pages',
+			host: 'https://api.github.com'
 		}
 	},
 
@@ -182,12 +191,12 @@ var CMS = {
 		}
 	},
 
-	parseContent: function(content, type, filedate, counter, numFiles) {
+	parseContent: function(content, type, file, counter, numFiles) {
 
 		var data = content.split(CMS.settings.parseSeperator),
 			contentObj = {},
 			id = counter,
-			date = filedate;
+			date = file.date;
 
 		contentObj.id = id;
 		contentObj.date = date;
@@ -225,7 +234,7 @@ var CMS = {
 		}
 	},
 
-	getContent: function(type, filename, filedate, counter, numFiles) {
+	getContent: function(type, file, counter, numFiles) {
 
 		var urlFolder = '';
 
@@ -238,12 +247,18 @@ var CMS = {
 				break;
 		}
 
+		if(CMS.settings.mode == 'Github') {
+			url = file.link;
+		} else {
+			url = urlFolder + '/' + file.name;
+		}
+
 		$.ajax({
 			type: 'GET',
-			url: urlFolder + '/' + filename,
+			url: url,
 			dataType: 'html',
 			success: function(content) {
-				CMS.parseContent(content, type, filedate, counter, numFiles);
+				CMS.parseContent(content, type, file, counter, numFiles);
 			},
 			error: function() {
 				var errorMsg = 'Error loading ' + type + ' content';
@@ -254,7 +269,8 @@ var CMS = {
 
 	getFiles: function(type) {
 
-		var folder = '';
+		var folder = '',
+			url = '';
 
 		switch(type) {
 			case 'post':
@@ -265,22 +281,49 @@ var CMS = {
 				break;
 		}
 
+		if(CMS.settings.mode == 'Github') {
+			var gus = CMS.settings.githubUserSettings,
+				gs = CMS.settings.githubSettings;
+			url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
+		} else {
+			url = folder;
+		}
+
 		$.ajax({
-			url: folder,
+			url: url,
 			success: function(data) {
 
-				var files = [];
+				var files = [],
+					linkFiles;
 
-				$(data).find("a").each(function() {
+				if(CMS.settings.mode == 'Github') {
+					linkFiles = data;
+				} else {
+					linkFiles = $(data).find("a");
+				}
 
-					var filename = $(this).attr("href");
+				$(linkFiles).each(function(k, f) {
+
+					var filename,
+						downloadLink;
+
+					if(CMS.settings.mode == 'Github') {
+						filename = f.name;
+						downloadLink = f.download_url;
+					} else {
+						filename = $(f).attr("href");
+					}
 
 					if(filename.endsWith('.md')) {
 						var file = {};
 						file.date = new Date(filename.substring(0, 10));
 						file.name = filename;
+						if(downloadLink) {
+							file.link = downloadLink;
+						}
 						files.push(file);
 					}
+
 				});
 
 				var counter = 0,
@@ -289,7 +332,7 @@ var CMS = {
 				if(files.length > 0) {
 					$(files).each(function(k, file) {
 						counter++;
-						CMS.getContent(type, file.name, file.date, counter, numFiles);
+						CMS.getContent(type, file, counter, numFiles);
 					});
 				} else {
 					var errorMsg = 'Error loading ' + type + 's in directory. Make sure ' +
@@ -298,9 +341,15 @@ var CMS = {
 				}
 			},
 			error: function() {
-				var errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
-					type + 's directory is set correctly in config and .htaccess is in ' +
-					type + 's directory with Apache "Options Indexes" set on.';
+				var errorMsg;
+				if(CMS.settings.mode == 'Github') {
+					errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
+						'your Github settings are correctly set in your config.js file.';
+				} else {
+					errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
+						type + 's directory is set correctly in config and .htaccess is in ' +
+						type + 's directory with Apache "Options Indexes" set on.';
+				}
 				CMS.renderError(errorMsg);
 			}
 		});
@@ -343,15 +392,32 @@ var CMS = {
 
 	setSiteAttributes: function() {
 		CMS.settings.siteAttributes.forEach(function(attribute) {
-			$(attribute.attr).html(attribute.value).hide().fadeIn(CMS.settings.fadeSpeed);
+
+			var value;
+
+			// Set brand
+			if(attribute.attr == '.cms_sitename') {
+				if (attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
+		            value = '<img src="' + attribute.value + '" />';
+		        } else {
+		            value = attribute.value;
+		        }
+			} else {
+				value = attribute.value;
+			}
+			$(attribute.attr).html(value).hide().fadeIn(CMS.settings.fadeSpeed);
 		});
 	},
 
 	generateSite: function() {
 
 		this.setSiteAttributes();
-		this.getFiles('post');
-        this.getFiles('page');
+
+		var types = ['post', 'page'];
+
+		types.forEach(function(type){
+			CMS.getFiles(type);
+		});
 
 		// Check for hash changes
         $(window).on('hashchange', function () {

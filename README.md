@@ -2,22 +2,12 @@
 
 CMS.js is fully client-side, pure Javascript static site generator in the spirit of [Jekyll](https://github.com/jekyll/jekyll)
 that uses plain ol' HTML, CSS and Javascript to generate your website. CMS.js is like a file-based CMS.
-It takes your content, renders Markdown and delivers a complete website in Single-Page Application fashion...
-without the aid of server-side scripting (no Node.js, PHP, Ruby, etc.).
+It takes your content, renders Markdown and delivers a complete website in Single-Page
+App fashion...without the aid of server-side scripting (no Node.js, PHP, Ruby, etc.).
 
 ![CMS.js Screenshot](https://raw.githubusercontent.com/cdmedia/cms.js/gh-pages/img/screenshot.png)
 
 
-## Requirements:
-
-* Apache with htaccess enabled
-
-
-## How it works
-
-CMS.js takes advantage of Apache's Directory Indexing feature. By allowing indexes,
-CMS.js sends an AJAX call to your specified folders and looks for Markdown files.
-After they are found, it takes care of everything else and delivers a full website.
 
 ## Demo
 
@@ -26,11 +16,33 @@ Check out a working [demo here](http://cdmedia.github.io/cms.js/demo/)
 
 ## Quick Start
 
+CMS.js currently supports 2 website modes, Github and Apache.
+
+**Github Mode**
+This is the default mode for CMS.js. Host your website on Github using
+Github Pages, similar to Jekyll.
+
+**Apache Mode**
+Use apache mode if you choose to self host your content. If you choose this option,
+*make sure Apache with htaccess is enabled*.
+
 1. Clone the repo: `git clone https://github.com/cdmedia/cms.js.git`
-2. Run `bower install`
-3. Make sure Apache htaccess is enabled
-4. Configure `js/config.js` to your liking
-5. Visit your site!
+2. Configure `js/config.js` to your liking
+3. Make sure to set your `githubUserSettings` in `js/config.js` if using Github mode
+4. Visit your site!
+
+
+## How it works
+
+**Github Mode**
+
+In Github mode, CMS.js uses the Github API to get the content of your gh-pages repo
+and serve them as a full website.
+
+**Apache Mode**
+In Apache mode, CMS.js takes advantage of Apache's Directory Indexing feature. By allowing indexes,
+CMS.js sends an AJAX call to your specified folders and looks for Markdown files.
+After they are found, it takes care of everything else and delivers a full website.
 
 
 ## Migration from Jekyll

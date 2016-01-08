@@ -2,8 +2,8 @@ $(function() {
 
 	CMS.init({
 
-		// Name of your site
-		siteName: 'New site',
+		// Name of your site or location of logo file ,relative to root directory (img/logo.png)
+		siteName: 'My Site',
 
 		// Tagline for your site
 		siteTagline: 'Your site tagline',
@@ -34,6 +34,17 @@ $(function() {
 
 		// Site footer text
 		footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
+
+		// Mode 'Github' for Github Pages, 'Apache' for Apache server. Defaults
+		// to Github
+		mode: 'Github',
+
+		// If Github mode is set, your Github username and repo name. Defaults
+		// to Github pages branch (gh-pages)
+		githubUserSettings: {
+			username: 'cdmedia',
+			repo: 'cms.js'
+		}
 
 	});
 
