@@ -16,15 +16,19 @@ Check out a working [demo here](http://cdmedia.github.io/cms.js/demo/)
 
 ## Quick Start
 
-CMS.js currently supports 2 website modes, Github and Apache.
+CMS.js currently supports two website modes, Github and Apache.
 
 **Github Mode**
+
 This is the default mode for CMS.js. Host your website on Github using
 Github Pages, similar to Jekyll.
 
 **Apache Mode**
+
 Use apache mode if you choose to self host your content. If you choose this option,
 *make sure Apache with htaccess is enabled*.
+
+**Install**
 
 1. Clone the repo: `git clone https://github.com/cdmedia/cms.js.git`
 2. Configure `js/config.js` to your liking
@@ -40,6 +44,7 @@ In Github mode, CMS.js uses the Github API to get the content of your gh-pages r
 and serve them as a full website.
 
 **Apache Mode**
+
 In Apache mode, CMS.js takes advantage of Apache's Directory Indexing feature. By allowing indexes,
 CMS.js sends an AJAX call to your specified folders and looks for Markdown files.
 After they are found, it takes care of everything else and delivers a full website.
@@ -48,10 +53,12 @@ After they are found, it takes care of everything else and delivers a full websi
 ## Migration from Jekyll
 
 **Importing Posts**
+
 Once CMS.js is installed and running, simply copy all of your posts from your Jekyll
 project's `_post` folder to your designated CMS.js posts folder.
 
 **Importing Pages**
+
 Copy all of your Markdown pages from your Jekyll projects root folder into your designated
 CMS.js pages folder.
 
