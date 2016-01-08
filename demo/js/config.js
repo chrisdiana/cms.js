@@ -6,7 +6,7 @@ $(function() {
 		siteName: 'CMS.js',
 
 		// Tagline for your site
-		siteTagline: 'The Javascript CMS',
+		siteTagline: 'The Javascript Site Generator',
 
 		// Email address
 		siteEmail: 'your_email@example.com',
