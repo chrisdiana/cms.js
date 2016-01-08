@@ -38,9 +38,10 @@ var CMS = {
 		},
 		mode: 'Github',
 		githubSettings: {
-			username: 'cdmedia',
-			repo: 'cms.js',
-			branch: 'gh-pages'
+			username: 'yourusername',
+			repo: 'yourrepo',
+			branch: 'gh-pages',
+			host: 'https://api.github.com'
 		}
 	},
 
@@ -279,7 +280,8 @@ var CMS = {
 		}
 
 		if(CMS.settings.mode == 'Github') {
-			url = 'https://api.github.com/repos/cdmedia/cms.js/contents/demo/' + folder + '?ref=gh-pages';
+			var gs = CMS.settings.githubSettings;
+			url = gs.host + '/repos/' + gs.username + '/' + gs.repo + '/contents' + '?ref=' + gs.branch;
 		} else {
 			url = folder;
 		}

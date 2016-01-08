@@ -36,6 +36,16 @@ $(function() {
 		// Site footer text
 		footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
 
+		// Mode 'Github' for Github Pages, 'Apache' for Apache server
+		mode: 'Github',
+
+		// If Github mode is set, your Github username and repo name. Defaults
+		// to Github pages branch (gh-pages)
+		githubSettings: {
+			username: 'cdmedia',
+			repo: 'cms.js'
+		}
+
 	});
 
 	// Markdown settings
