@@ -279,7 +279,7 @@ var CMS = {
 		}
 
 		if(CMS.settings.mode == 'Github') {
-			url = 'https://api.github.com/repos/cdmedia/cms.js/contents/demo/' + folder + 's?ref=gh-pages';
+			url = 'https://api.github.com/repos/cdmedia/cms.js/contents/demo/' + folder + '?ref=gh-pages';
 		} else {
 			url = folder;
 		}
