@@ -392,7 +392,20 @@ var CMS = {
 
 	setSiteAttributes: function() {
 		CMS.settings.siteAttributes.forEach(function(attribute) {
-			$(attribute.attr).html(attribute.value).hide().fadeIn(CMS.settings.fadeSpeed);
+
+			var value;
+
+			// Set brand
+			if(attribute.attr == '.cms_sitename') {
+				if (attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
+		            value = '<img src="' + attribute.value + '" />';
+		        } else {
+		            value = attribute.value;
+		        }
+			} else {
+				value = attribute.value;
+			}
+			$(attribute.attr).html(value).hide().fadeIn(CMS.settings.fadeSpeed);
 		});
 	},
 
