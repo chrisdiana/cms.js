@@ -86,7 +86,8 @@ var CMS = {
 		if (map[type]) {
 			map[type]();
 		} else {
-			CMS.renderError(s);
+			var errorMsg = 'Error loading page.';
+			CMS.renderError(errorMsg);
 		}
 	},
 
@@ -156,7 +157,7 @@ var CMS = {
 		}, 800);
 	},
 
-	renderError: function(s, msg) {
+	renderError: function(msg) {
 		var tpl = $('#error-template').html(),
 			$tpl = $(tpl);
 
@@ -246,7 +247,7 @@ var CMS = {
 			},
 			error: function() {
 				var errorMsg = 'Error loading ' + type + ' content';
-				CMS.renderError(s, errorMsg);
+				CMS.renderError(errorMsg);
 			}
 		});
 	},
@@ -293,14 +294,14 @@ var CMS = {
 				} else {
 					var errorMsg = 'Error loading ' + type + 's in directory. Make sure ' +
 						'there are Markdown ' + type + 's in the ' + type + 's folder.';
-					CMS.renderError(s, errorMsg);
+					CMS.renderError(errorMsg);
 				}
 			},
 			error: function() {
 				var errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
 					type + 's directory is set correctly in config and .htaccess is in ' +
 					type + 's directory with Apache "Options Indexes" set on.';
-				CMS.renderError(s, errorMsg);
+				CMS.renderError(errorMsg);
 			}
 		});
 	},
