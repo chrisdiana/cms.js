@@ -252,6 +252,7 @@ var CMS = {
 		} else {
 			url = urlFolder + '/' + file.name;
 		}
+		console.log(url);
 
 		$.ajax({
 			type: 'GET',
@@ -284,7 +285,7 @@ var CMS = {
 		if(CMS.settings.mode == 'Github') {
 			var gus = CMS.settings.githubUserSettings,
 				gs = CMS.settings.githubSettings;
-			url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents' + '?ref=' + gs.branch;
+			url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
 		} else {
 			url = folder;
 		}
