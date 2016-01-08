@@ -252,7 +252,6 @@ var CMS = {
 		} else {
 			url = urlFolder + '/' + file.name;
 		}
-		console.log(url);
 
 		$.ajax({
 			type: 'GET',
@@ -294,35 +293,38 @@ var CMS = {
 			url: url,
 			success: function(data) {
 
-				var files = [];
+				var files = [],
+					linkFiles;
 
 				if(CMS.settings.mode == 'Github') {
-					data.forEach(function(fileObj){
-
-						var filename = fileObj.name;
-						var downloadLink = fileObj.download_url;
-
-						if(filename.endsWith('.md')){
-							var file = {};
-							file.date = new Date(filename.substring(0, 10));
-							file.name = filename;
-							file.link = downloadLink;
-							files.push(file);
-						}
-                    });
+					linkFiles = data;
 				} else {
-					$(data).find("a").each(function() {
-
-						var filename = $(this).attr("href");
-
-						if(filename.endsWith('.md')) {
-							var file = {};
-							file.date = new Date(filename.substring(0, 10));
-							file.name = filename;
-							files.push(file);
-						}
-					});
+					linkFiles = $(data).find("a");
 				}
+
+				$(linkFiles).each(function(k, f) {
+
+					var filename,
+						downloadLink;
+
+					if(CMS.settings.mode == 'Github') {
+						filename = f.name;
+						downloadLink = f.download_url;
+					} else {
+						filename = $(f).attr("href");
+					}
+
+					if(filename.endsWith('.md')) {
+						var file = {};
+						file.date = new Date(filename.substring(0, 10));
+						file.name = filename;
+						if(downloadLink) {
+							file.link = downloadLink;
+						}
+						files.push(file);
+					}
+
+				});
 
 				var counter = 0,
 					numFiles = files.length;
