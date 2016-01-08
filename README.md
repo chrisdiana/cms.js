@@ -19,14 +19,18 @@ CMS.js takes advantage of Apache's Directory Indexing feature. By allowing index
 CMS.js sends an AJAX call to your specified folders and looks for Markdown files.
 After they are found, it takes care of everything else and delivers a full website.
 
+## Demo
+
+Check out a working [demo here](http://cdmedia.github.io/cms.js/demo/)
+
 
 ## Quick Start
 
-1.Clone the repo: `git clone https://github.com/cdmedia/cms.js.git`
-2.Run `bower install`
-3.Make sure Apache htaccess is enabled
-4.Configure `js/config.js` to your liking
-5.Visit your site!
+1. Clone the repo: `git clone https://github.com/cdmedia/cms.js.git`
+2. Run `bower install`
+3. Make sure Apache htaccess is enabled
+4. Configure `js/config.js` to your liking
+5. Visit your site!
 
 
 ## Migration from Jekyll
