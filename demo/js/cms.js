@@ -289,6 +289,8 @@ var CMS = {
 			url = folder;
 		}
 
+		console.log(url);
+
 		$.ajax({
 			url: url,
 			success: function(data) {
