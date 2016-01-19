@@ -33,6 +33,8 @@ Use apache mode if you choose to self host your content. If you choose this opti
 1. Clone the repo: `git clone https://github.com/cdmedia/cms.js.git`
 2. Configure `js/config.js` to your liking
 3. Make sure to set your `githubUserSettings` in `js/config.js` if using Github mode
+4. If using Github mode, create a new branch from your master called `gh-pages`
+   (Github's default branch for hosting)
 4. Visit your site!
 
 
