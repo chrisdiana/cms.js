@@ -1,3 +1,5 @@
+---
+layout: post
 title: web前端之原生DOM&jQuery-DOM编程习题【清华大学】
 date: 2015-07-09 22:53:08
 type: slider

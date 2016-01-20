@@ -1,3 +1,5 @@
+---
+layout: post
 title: '野心和”点子”'
 date: 2013-08-18 22:34:13
 tags:

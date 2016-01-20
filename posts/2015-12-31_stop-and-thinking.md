@@ -1,3 +1,5 @@
+---
+layout: post
 title: 'stop and thinking'
 date: 2013-06-13 22:54:15
 tags:
