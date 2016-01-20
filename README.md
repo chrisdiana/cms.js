@@ -30,12 +30,12 @@ Use apache mode if you choose to self host your content. If you choose this opti
 
 **Install**
 
-1. Download the [latest release](https://github.com/cdmedia/cms.js/releases/latest)
+1. Clone the repo: `git clone https://github.com/cdmedia/cms.js.git` or download the [latest release](https://github.com/cdmedia/cms.js/releases/latest)
 2. Configure `js/config.js` to your liking
 3. Make sure to set your `githubUserSettings` in `js/config.js` if using Github mode
 4. If using Github mode, create a new branch from your master or working branch called `gh-pages`
    (Github's default branch for hosting)
-4. Visit your site!
+5. Visit your site!
 
 
 ## How it works
