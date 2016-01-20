@@ -43,7 +43,11 @@ $(function() {
 		// to Github pages branch (gh-pages)
 		githubUserSettings: {
 			username: 'xiongwilee',
+<<<<<<< HEAD
 			repo: 'https://github.com/xiongwilee/cms.js/tree/gh-pages'
+=======
+			repo: 'cms.js'
+>>>>>>> gh-pages
 		}
 
 	});

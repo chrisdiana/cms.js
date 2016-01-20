@@ -208,9 +208,12 @@ var CMS = {
 			if(v.length) {
 				v.replace(/^\s+|\s+$/g, '').trim();
 				var i = v.split(':');
-				var val = i[1];
+				var val = v.slice(v.indexOf(':')+1);
 				k = i[0];
-				contentObj[k] = val.trim();
+				
+				val = (k == 'date' ? (new Date(val)) : val);
+
+				contentObj[k] = (val.trim ? val.trim() : val);
 			}
 		});
 
