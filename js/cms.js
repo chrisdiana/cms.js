@@ -213,7 +213,7 @@ var CMS = {
 				
 				val = (k == 'date' ? (new Date(val)) : val);
 
-				contentObj[k] = val.trim();
+				contentObj[k] = (val.trim ? val.trim() : val);
 			}
 		});
 
