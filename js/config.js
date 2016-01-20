@@ -16,7 +16,7 @@ $(function() {
 
 		// Navigation items
 		siteNavItems: [
-			{ name: 'Github', href: 'https://github.com/xiongwilee', newWindow: false},
+			{ name: 'Github', href: 'https://github.com/yourname', newWindow: false},
 			{ name: 'About'}
 		],
 
@@ -42,8 +42,8 @@ $(function() {
 		// If Github mode is set, your Github username and repo name. Defaults
 		// to Github pages branch (gh-pages)
 		githubUserSettings: {
-			username: 'xiongwilee',
-			repo: 'cms.js'
+			username: 'yourusername',
+			repo: 'yourrepo'
 		}
 
 	});
