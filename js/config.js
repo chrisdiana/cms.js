@@ -2,11 +2,11 @@ $(function() {
 
 	CMS.init({
 
-		// Name of your site
-		siteName: 'CMS.js',
+		// Name of your site or location of logo file ,relative to root directory (img/logo.png)
+		siteName: 'My Site',
 
 		// Tagline for your site
-		siteTagline: 'The Javascript Site Generator',
+		siteTagline: 'Your site tagline',
 
 		// Email address
 		siteEmail: 'your_email@example.com',
@@ -16,19 +16,18 @@ $(function() {
 
 		// Navigation items
 		siteNavItems: [
-			{ name: 'Github', href: 'https://github.com/cdmedia/cms.js', newWindow: true},
-			{ name: 'About'},
-			{ name: 'Links'},
+			{ name: 'Github', href: 'https://github.com/yourname', newWindow: false},
+			{ name: 'About'}
 		],
 
 		// Posts folder name
-		postsFolder: 'demo/posts',
+		postsFolder: 'posts',
 
 		// Homepage posts snippet length
 		postSnippetLength: 120,
 
 		// Pages folder name
-		pagesFolder: 'demo/pages',
+		pagesFolder: 'pages',
 
 		// Site fade speed
 		fadeSpeed: 300,
@@ -36,14 +35,15 @@ $(function() {
 		// Site footer text
 		footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
 
-		// Mode 'Github' for Github Pages, 'Apache' for Apache server
+		// Mode 'Github' for Github Pages, 'Apache' for Apache server. Defaults
+		// to Github
 		mode: 'Github',
 
 		// If Github mode is set, your Github username and repo name. Defaults
 		// to Github pages branch (gh-pages)
 		githubUserSettings: {
-			username: 'cdmedia',
-			repo: 'cms.js'
+			username: 'yourusername',
+			repo: 'yourrepo'
 		}
 
 	});

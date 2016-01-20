@@ -1,0 +1,12 @@
+{
+    "name": "CMS.js",
+    "description": "The Javascript CMS.",
+    "version": "1.0.0",
+    "homepage": "http://cdmedia.github.io/cms.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/cdmedia/cms.js"
+    },
+    "main": "index.html",
+    "license": "MIT"
+}
