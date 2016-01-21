@@ -101,7 +101,7 @@ var CMS = {
 	},
 
         renderPage: function(title) {
-	        CMS.pages.sort(function(a,b) {return a.date - b.date});
+     	        CMS.pages.sort(function(a,b) {return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date});
 		CMS.pages.forEach(function(page){
 			if(page.title == title) {
 
@@ -135,7 +135,7 @@ var CMS = {
 	},
 
         renderPosts: function() {
-	        CMS.posts.sort(function(a,b) {return a.date - b.date});
+	        CMS.posts.sort(function(a,b) {return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date});
 		CMS.posts.forEach(function(post){
 			var tpl = $('#post-template').html(),
 				$tpl = $(tpl);
