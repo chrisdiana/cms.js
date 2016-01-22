@@ -84,7 +84,7 @@ var CMS = {
 				CMS.renderPost(id);
 			},
 
-			// Post view
+			// Page view
 			'#page' : function() {
 				var title = url.split('#page/')[1].trim();
 				CMS.renderPage(title);
