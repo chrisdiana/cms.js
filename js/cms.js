@@ -15,7 +15,7 @@ var CMS = {
     siteAuthor: 'Your Name',
     siteUrl: '',
     siteNavItems: [
-      { name: 'Github', href: '#', newWindow: false},
+      { name: 'Github', href: '#', newWindow: false },
       { name: 'About' }
     ],
     pagination: 3,
@@ -31,9 +31,9 @@ var CMS = {
     get siteAttributes() {
       return [
         { attr: 'title', value: CMS.settings.siteName },
-        { attr: '.cms_sitename', value: CMS.settings.siteName},
-        { attr: '.cms_tagline', value: CMS.settings.siteTagline},
-        { attr: '.cms_footer_text', value: CMS.settings.footerText}
+        { attr: '.cms_sitename', value: CMS.settings.siteName },
+        { attr: '.cms_tagline', value: CMS.settings.siteTagline },
+        { attr: '.cms_footer_text', value: CMS.settings.footerText }
       ];
     },
     mode: 'Github',
@@ -79,13 +79,13 @@ var CMS = {
       },
 
       // Post view
-      '#post' : function() {
+      '#post' : function () {
         var id = url.split('#post/')[1].trim();
         CMS.renderPost(id);
       },
 
       // Post view
-      '#page' : function() {
+      '#page' : function () {
         var title = url.split('#page/')[1].trim();
         CMS.renderPage(title);
       }
@@ -100,10 +100,10 @@ var CMS = {
     }
   },
 
-        renderPage: function(title) {
-              CMS.pages.sort(function(a,b) {return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date;});
-    CMS.pages.forEach(function(page){
-      if(page.title == title) {
+  renderPage: function (title) {
+    CMS.pages.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.pages.forEach(function (page){
+      if (page.title == title) {
 
         var tpl = $('#page-template').html(),
           $tpl = $(tpl);
@@ -117,9 +117,9 @@ var CMS = {
     CMS.renderFooter();
   },
 
-  renderPost: function(id) {
-    CMS.posts.forEach(function(post){
-      if(post.id == id) {
+  renderPost: function (id) {
+    CMS.posts.forEach(function (post){
+      if (post.id == id) {
 
         var tpl = $('#post-template').html(),
           $tpl = $(tpl);
@@ -134,9 +134,9 @@ var CMS = {
     CMS.renderFooter();
   },
 
-        renderPosts: function() {
-          CMS.posts.sort(function(a,b) {return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date;});
-    CMS.posts.forEach(function(post){
+  renderPosts: function () {
+    CMS.posts.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.posts.forEach(function (post){
       var tpl = $('#post-template').html(),
         $tpl = $(tpl);
 
@@ -161,29 +161,29 @@ var CMS = {
     CMS.renderFooter();
   },
 
-  renderFooter: function() {
+  renderFooter: function () {
     // Load footer later so things dont look weird loading ajax stuff
     setTimeout(function () {
       CMS.settings.footerContainer.fadeIn(CMS.settings.fadeSpeed);
     }, 800);
   },
 
-  renderError: function(msg) {
+  renderError: function (msg) {
     var tpl = $('#error-template').html(),
       $tpl = $(tpl);
 
     $tpl.find('.error_text').html(msg);
 
-    CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function(){
+    CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function (){
       CMS.settings.mainContainer.html($tpl).fadeIn(CMS.settings.fadeSpeed);
     });
   },
 
-  contentLoaded: function(type) {
+  contentLoaded: function (type) {
 
     CMS.loaded[type] = true;
 
-    if(CMS.loaded.page && CMS.loaded.post) {
+    if (CMS.loaded.page && CMS.loaded.post) {
 
       // Set navigation
       this.setNavigation();
@@ -193,7 +193,7 @@ var CMS = {
     }
   },
 
-  parseContent: function(content, type, file, counter, numFiles) {
+  parseContent: function (content, type, file, counter, numFiles) {
 
     var data = content.split(CMS.settings.parseSeperator),
       contentObj = {},
@@ -206,8 +206,8 @@ var CMS = {
     // Get content info
     var infoData = data[1].split(/[\n\r]+/);
 
-    $.each(infoData, function(k, v) {
-      if(v.length) {
+    $.each(infoData, function (k, v) {
+      if (v.length) {
         v.replace(/^\s+|\s+$/g, '').trim();
         var i = v.split(':');
         var val = v.slice(v.indexOf(':')+1);
@@ -227,19 +227,19 @@ var CMS = {
     contentObj.contentData = marked(contentData);
 
 
-    if(type == 'post') {
+    if (type == 'post') {
       CMS.posts.push(contentObj);
     } else if (type == 'page') {
       CMS.pages.push(contentObj);
     }
 
     // Execute after all content is loaded
-    if(counter === numFiles) {
+    if (counter === numFiles) {
       CMS.contentLoaded(type);
     }
   },
 
-  getContent: function(type, file, counter, numFiles) {
+  getContent: function (type, file, counter, numFiles) {
 
     var urlFolder = '';
 
@@ -252,7 +252,7 @@ var CMS = {
         break;
     }
 
-    if(CMS.settings.mode == 'Github') {
+    if (CMS.settings.mode == 'Github') {
       url = file.link;
     } else {
       url = urlFolder + '/' + file.name;
@@ -262,17 +262,17 @@ var CMS = {
       type: 'GET',
       url: url,
       dataType: 'html',
-      success: function(content) {
+      success: function (content) {
         CMS.parseContent(content, type, file, counter, numFiles);
       },
-      error: function() {
+      error: function () {
         var errorMsg = 'Error loading ' + type + ' content';
         CMS.renderError(errorMsg);
       }
     });
   },
 
-  getFiles: function(type) {
+  getFiles: function (type) {
 
     var folder = '',
       url = '';
@@ -286,7 +286,7 @@ var CMS = {
         break;
     }
 
-    if(CMS.settings.mode == 'Github') {
+    if (CMS.settings.mode == 'Github') {
       var gus = CMS.settings.githubUserSettings,
         gs = CMS.settings.githubSettings;
       url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
@@ -296,34 +296,34 @@ var CMS = {
 
     $.ajax({
       url: url,
-      success: function(data) {
+      success: function (data) {
 
         var files = [],
           linkFiles;
 
-        if(CMS.settings.mode == 'Github') {
+        if (CMS.settings.mode == 'Github') {
           linkFiles = data;
         } else {
           linkFiles = $(data).find('a');
         }
 
-        $(linkFiles).each(function(k, f) {
+        $(linkFiles).each(function (k, f) {
 
           var filename,
             downloadLink;
 
-          if(CMS.settings.mode == 'Github') {
+          if (CMS.settings.mode == 'Github') {
             filename = f.name;
             downloadLink = f.download_url;
           } else {
             filename = $(f).attr('href');
           }
 
-          if(filename.endsWith('.md')) {
+          if (filename.endsWith('.md')) {
             var file = {};
             file.date = new Date(filename.substring(0, 10));
             file.name = filename;
-            if(downloadLink) {
+            if (downloadLink) {
               file.link = downloadLink;
             }
             files.push(file);
@@ -334,8 +334,8 @@ var CMS = {
         var counter = 0,
           numFiles = files.length;
 
-        if(files.length > 0) {
-          $(files).each(function(k, file) {
+        if (files.length > 0) {
+          $(files).each(function (k, file) {
             counter++;
             CMS.getContent(type, file, counter, numFiles);
           });
@@ -345,9 +345,9 @@ var CMS = {
           CMS.renderError(errorMsg);
         }
       },
-      error: function() {
+      error: function () {
         var errorMsg;
-        if(CMS.settings.mode == 'Github') {
+        if (CMS.settings.mode == 'Github') {
           errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
             'your Github settings are correctly set in your config.js file.';
         } else {
@@ -360,21 +360,21 @@ var CMS = {
     });
   },
 
-  setNavigation: function() {
+  setNavigation: function () {
 
     var nav = '<ul>';
-    CMS.settings.siteNavItems.forEach(function(navItem) {
-      if(navItem.hasOwnProperty('href')) {
+    CMS.settings.siteNavItems.forEach(function (navItem) {
+      if (navItem.hasOwnProperty('href')) {
         nav += '<li><a href="' +  navItem.href + '"';
-        if(navItem.hasOwnProperty('newWindow')) {
-          if(navItem.newWindow) {
+        if (navItem.hasOwnProperty('newWindow')) {
+          if (navItem.newWindow) {
             nav += 'target="_blank"';
           }
         }
         nav += '>' + navItem.name + '</a></li>';
       } else {
-        CMS.pages.forEach(function(page) {
-          if(navItem.name == page.title) {
+        CMS.pages.forEach(function (page) {
+          if (navItem.name == page.title) {
             nav += '<li><a href="#" class="cms_nav_link" id="' + navItem.name + '">' + navItem.name + '</a></li>';
           }
         });
@@ -385,7 +385,7 @@ var CMS = {
     $('.cms_nav').html(nav).hide().fadeIn(CMS.settings.fadeSpeed);
 
     // Set onclicks for nav links
-    $.each($('.cms_nav_link'), function(k, link) {
+    $.each($('.cms_nav_link'), function (k, link) {
       var title =  $(this).attr('id');
       $(this).on('click', function (e) {
         e.preventDefault();
@@ -395,13 +395,13 @@ var CMS = {
     });
   },
 
-  setSiteAttributes: function() {
-    CMS.settings.siteAttributes.forEach(function(attribute) {
+  setSiteAttributes: function () {
+    CMS.settings.siteAttributes.forEach(function (attribute) {
 
       var value;
 
       // Set brand
-      if(attribute.attr == '.cms_sitename') {
+      if (attribute.attr == '.cms_sitename') {
         if (attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
                 value = '<img src="' + attribute.value + '" />';
             } else {
@@ -414,13 +414,13 @@ var CMS = {
     });
   },
 
-  generateSite: function() {
+  generateSite: function () {
 
     this.setSiteAttributes();
 
     var types = ['post', 'page'];
 
-    types.forEach(function(type){
+    types.forEach(function (type){
       CMS.getFiles(type);
     });
 
