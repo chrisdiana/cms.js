@@ -53,7 +53,7 @@ var CMS = {
 
   extend: function (target, opts, callback) {
     var next;
-    if (typeof opts === "undefined") {
+    if (typeof opts === 'undefined') {
       opts = target;
       target = CMS;
     }
@@ -304,7 +304,7 @@ var CMS = {
         if(CMS.settings.mode == 'Github') {
           linkFiles = data;
         } else {
-          linkFiles = $(data).find("a");
+          linkFiles = $(data).find('a');
         }
 
         $(linkFiles).each(function(k, f) {
@@ -316,7 +316,7 @@ var CMS = {
             filename = f.name;
             downloadLink = f.download_url;
           } else {
-            filename = $(f).attr("href");
+            filename = $(f).attr('href');
           }
 
           if(filename.endsWith('.md')) {
@@ -386,7 +386,7 @@ var CMS = {
 
     // Set onclicks for nav links
     $.each($('.cms_nav_link'), function(k, link) {
-      var title =  $(this).attr("id");
+      var title =  $(this).attr('id');
       $(this).on('click', function (e) {
         e.preventDefault();
         window.location.hash = 'page/' + title;
