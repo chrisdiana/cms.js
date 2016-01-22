@@ -1,66 +1,66 @@
 $(function() {
 
-	CMS.init({
+  CMS.init({
 
-		// Name of your site or location of logo file ,relative to root directory (img/logo.png)
-		siteName: 'My Site',
+    // Name of your site or location of logo file ,relative to root directory (img/logo.png)
+    siteName: 'My Site',
 
-		// Tagline for your site
-		siteTagline: 'Your site tagline',
+    // Tagline for your site
+    siteTagline: 'Your site tagline',
 
-		// Email address
-		siteEmail: 'your_email@example.com',
+    // Email address
+    siteEmail: 'your_email@example.com',
 
-		// Name
-		siteAuthor: 'Your Name',
+    // Name
+    siteAuthor: 'Your Name',
 
-		// Navigation items
-		siteNavItems: [
-			{ name: 'Github', href: 'https://github.com/yourname', newWindow: false},
-			{ name: 'About'}
-		],
+    // Navigation items
+    siteNavItems: [
+      { name: 'Github', href: 'https://github.com/yourname', newWindow: false},
+      { name: 'About'}
+    ],
 
-		// Posts folder name
-		postsFolder: 'posts',
+    // Posts folder name
+    postsFolder: 'posts',
 
-		// Homepage posts snippet length
-		postSnippetLength: 120,
+    // Homepage posts snippet length
+    postSnippetLength: 120,
 
-		// Pages folder name
-	        pagesFolder: 'pages',
+    // Pages folder name
+          pagesFolder: 'pages',
 
-	        // Order of sorting (true for newest to oldest)
-	        sortDateOrder: true,
-	    
-		// Site fade speed
-		fadeSpeed: 300,
+          // Order of sorting (true for newest to oldest)
+          sortDateOrder: true,
 
-		// Site footer text
-		footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
+    // Site fade speed
+    fadeSpeed: 300,
 
-		// Mode 'Github' for Github Pages, 'Apache' for Apache server. Defaults
-		// to Github
-		mode: 'Github',
+    // Site footer text
+    footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
 
-		// If Github mode is set, your Github username and repo name. Defaults
-		// to Github pages branch (gh-pages)
-		githubUserSettings: {
-			username: 'yourusername',
-			repo: 'yourrepo'
-		}
+    // Mode 'Github' for Github Pages, 'Apache' for Apache server. Defaults
+    // to Github
+    mode: 'Github',
 
-	});
+    // If Github mode is set, your Github username and repo name. Defaults
+    // to Github pages branch (gh-pages)
+    githubUserSettings: {
+      username: 'yourusername',
+      repo: 'yourrepo'
+    }
 
-	// Markdown settings
-	marked.setOptions({
-		renderer: new marked.Renderer(),
-		gfm: true,
-		tables: true,
-		breaks: false,
-		pedantic: false,
-		sanitize: true,
-		smartLists: true,
-		smartypants: false
-	});
+  });
+
+  // Markdown settings
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false
+  });
 
 });
