@@ -71,10 +71,20 @@ var CMS = {
     CMS.settings.footerContainer.hide();
 
     var type = url.split('/')[0];
+
     var map = {
 
-      // Main view
+      // Main view / Frontpage
       '' : function () {
+        if (CMS.settings.pageAsFrontpage == true) {
+          CMS.renderPosts();
+        } else {
+          CMS.renderPage(CMS.settings.pageAsFrontpage);
+        }
+      },
+
+      // Posts on Url
+      [CMS.settings.postsOnUrl] : function () {
         CMS.renderPosts();
       },
 
