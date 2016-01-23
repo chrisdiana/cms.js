@@ -27,10 +27,10 @@ $(function() {
     postSnippetLength: 120,
 
     // Pages folder name
-          pagesFolder: 'pages',
+    pagesFolder: 'pages',
 
-          // Order of sorting (true for newest to oldest)
-          sortDateOrder: true,
+    // Order of sorting (true for newest to oldest)
+    sortDateOrder: true,
 
     // Site fade speed
     fadeSpeed: 300,
