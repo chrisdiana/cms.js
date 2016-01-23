@@ -32,6 +32,15 @@ $(function() {
     // Order of sorting (true for newest to oldest)
     sortDateOrder: true,
 
+    // Posts on Frontpage (blog style) 
+    postsOnFrontpage: true,
+
+    // Page as Frontpage (static)
+    pageAsFrontpage: '',
+
+    // Posts/Blog on different URL
+    postsOnUrl: '#post',
+
     // Site fade speed
     fadeSpeed: 300,
 
