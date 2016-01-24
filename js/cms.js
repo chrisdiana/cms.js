@@ -362,25 +362,26 @@ var CMS = {
 
   setNavigation: function () {
 
-    var nav = '<ul>';
+    var navBuilder = ['<ul>'];
     CMS.settings.siteNavItems.forEach(function (navItem) {
       if (navItem.hasOwnProperty('href')) {
-        nav += '<li><a href="' +  navItem.href + '"';
+        navBuilder.push('<li><a href="', navItem.href, '"');
         if (navItem.hasOwnProperty('newWindow')) {
           if (navItem.newWindow) {
-            nav += 'target="_blank"';
+            navBuilder.push('target="_blank"');
           }
         }
-        nav += '>' + navItem.name + '</a></li>';
+        navBuilder.push('>', navItem.name, '</a></li>');
       } else {
         CMS.pages.forEach(function (page) {
           if (navItem.name == page.title) {
-            nav += '<li><a href="#" class="cms_nav_link" id="' + navItem.name + '">' + navItem.name + '</a></li>';
+            navBuilder.push('<li><a href="#" class="cms_nav_link" id="', navItem.name, '">', navItem.name, '</a></li>');
           }
         });
       }
     });
-    nav += '</ul>';
+    navBuilder.push('</ul>');
+    var nav = navBuilder.join('');
 
     $('.cms_nav').html(nav).hide().fadeIn(CMS.settings.fadeSpeed);
 
