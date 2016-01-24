@@ -39,7 +39,7 @@ $(function() {
     pageAsFrontpage: '',
 
     // Posts/Blog on different URL
-    postsOnUrl: '#post',
+    postsOnUrl: '',
 
     // Site fade speed
     fadeSpeed: 300,
