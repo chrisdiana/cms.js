@@ -226,11 +226,13 @@ var CMS = {
     var contentData = data.join();
     contentObj.contentData = marked(contentData);
 
-
-    if (type == 'post') {
-      CMS.posts.push(contentObj);
-    } else if (type == 'page') {
-      CMS.pages.push(contentObj);
+    switch(type) {
+      case 'post':
+        CMS.posts.push(contentObj);
+        break;
+      case 'page':
+        CMS.pages.push(contentObj);
+        break;
     }
 
     // Execute after all content is loaded
