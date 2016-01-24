@@ -95,6 +95,7 @@ var CMS = {
     if (map[type]) {
       map[type]();
     } else {
+      // Error view
       var errorMsg = 'Error loading page.';
       CMS.renderError(errorMsg);
     }
@@ -162,7 +163,7 @@ var CMS = {
   },
 
   renderFooter: function () {
-    // Load footer later so things dont look weird loading ajax stuff
+    // Delay footer loading while waiting on ajax requests
     setTimeout(function () {
       CMS.settings.footerContainer.fadeIn(CMS.settings.fadeSpeed);
     }, 800);
@@ -219,7 +220,7 @@ var CMS = {
       }
     });
 
-    // Drop stuff we dont need
+    // Drop data we don't need
     data.splice(0,2);
 
     // Put everything back together if broken
