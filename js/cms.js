@@ -83,7 +83,12 @@ var CMS = {
         }
       },
 
-      // Post view / single view
+      // Posts on Url
+      [CMS.settings.postsOnUrl] : function () {
+        CMS.renderPosts();
+      },
+
+      // Post view
       '#post' : function () {
         var id = url.split('#post/')[1].trim();
         CMS.renderPost(id);
@@ -96,22 +101,6 @@ var CMS = {
       }
 
     };
-
-    // Listing of posts
-    // Posts on Url: posts not on frontpage && config empty ==> '#posts'
-    if (CMS.settings.postsOnFrontpage == false && CMS.settings.postsOnUrl == '') {
-      map["#posts"] = function () {
-        CMS.renderPosts();
-      };
-    // Posts on Url: posts not on frontpage && user config ==> '#userconfig'
-    } else if (CMS.settings.postsOnFrontpage == false && CMS.settings.postsOnUrl !== '') {
-      map[ CMS.settings.postsOnUrl ] = function () {
-        CMS.renderPosts();
-      };
-    }
-
-
-
 
     if (map[type]) {
       map[type]();
