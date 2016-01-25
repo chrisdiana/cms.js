@@ -27,6 +27,9 @@ var CMS = {
     footerContainer: $('.cms_footer'),
     footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
     parseSeperator: '---',
+    postsOnFrontpage: true,
+    pageAsFrontpage: '',
+    postsOnUrl: '',
     loader: '<div class="loader">Loading...</div>',
     get siteAttributes() {
       return [
@@ -76,11 +79,7 @@ var CMS = {
 
       // Main view / Frontpage
       '' : function () {
-        if (CMS.settings.pageAsFrontpage == true) {
           CMS.renderPosts();
-        } else {
-          CMS.renderPage(CMS.settings.pageAsFrontpage);
-        }
       },
 
       // Post view / single view
@@ -96,22 +95,6 @@ var CMS = {
       }
 
     };
-
-    // Listing of posts
-    // Posts on Url: posts not on frontpage && config empty ==> '#posts'
-    if (CMS.settings.postsOnFrontpage == false && CMS.settings.postsOnUrl == '') {
-      map["#posts"] = function () {
-        CMS.renderPosts();
-      };
-    // Posts on Url: posts not on frontpage && user config ==> '#userconfig'
-    } else if (CMS.settings.postsOnFrontpage == false && CMS.settings.postsOnUrl !== '') {
-      map[ CMS.settings.postsOnUrl ] = function () {
-        CMS.renderPosts();
-      };
-    }
-
-
-
 
     if (map[type]) {
       map[type]();
@@ -210,7 +193,7 @@ var CMS = {
       // Set navigation
       this.setNavigation();
 
-          // Manually trigger on initial load
+      // Manually trigger on initial load
       $(window).trigger('hashchange');
     }
   },
@@ -428,10 +411,10 @@ var CMS = {
       // Set brand
       if (attribute.attr == '.cms_sitename') {
         if (attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
-                value = '<img src="' + attribute.value + '" />';
-            } else {
-                value = attribute.value;
-            }
+          value = '<img src="' + attribute.value + '" />';
+        } else {
+          value = attribute.value;
+        }
       } else {
         value = attribute.value;
       }
@@ -450,9 +433,9 @@ var CMS = {
     });
 
     // Check for hash changes
-        $(window).on('hashchange', function () {
-            CMS.render(window.location.hash);
-        });
+    $(window).on('hashchange', function () {
+      CMS.render(window.location.hash);
+    });
   },
 
   init: function (options) {
