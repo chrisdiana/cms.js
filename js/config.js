@@ -2,7 +2,7 @@ $(function() {
 
   CMS.init({
 
-    // Name of your site or location of logo file ,relative to root directory (img/logo.png)
+    // Name of your site or location of logo file, relative to root directory (img/logo.png)
     siteName: 'My Site',
 
     // Tagline for your site
@@ -27,10 +27,19 @@ $(function() {
     postSnippetLength: 120,
 
     // Pages folder name
-          pagesFolder: 'pages',
+    pagesFolder: 'pages',
 
-          // Order of sorting (true for newest to oldest)
-          sortDateOrder: true,
+    // Order of sorting (true for newest to oldest)
+    sortDateOrder: true,
+
+    // Posts on Frontpage (blog style)
+    postsOnFrontpage: true,
+
+    // Page as Frontpage (static)
+    pageAsFrontpage: '',
+
+    // Posts/Blog on different URL
+    postsOnUrl: '#post',
 
     // Site fade speed
     fadeSpeed: 300,
