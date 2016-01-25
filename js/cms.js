@@ -23,8 +23,8 @@ var CMS = {
     postSnippetLength: 120,
     pagesFolder: 'pages',
     fadeSpeed: 300,
-    mainContainer: $('.cms_main'),
-    footerContainer: $('.cms_footer'),
+    mainContainer: $(document.getElementsByClassName('cms_main')),
+    footerContainer: $(document.getElementsByClassName('cms_footer')),
     footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
     parseSeperator: '---',
     postsOnFrontpage: true,
@@ -110,7 +110,7 @@ var CMS = {
     CMS.pages.forEach(function (page){
       if (page.title == title) {
 
-        var tpl = $('#page-template').html(),
+        var tpl = $(document.getElementById('page-template')).html(),
           $tpl = $(tpl);
 
         $tpl.find('.page-title').html(page.title);
@@ -126,7 +126,7 @@ var CMS = {
     CMS.posts.forEach(function (post){
       if (post.id == id) {
 
-        var tpl = $('#post-template').html(),
+        var tpl = $(document.getElementById('post-template')).html(),
           $tpl = $(tpl);
 
         $tpl.find('.post-title').html(post.title);
@@ -142,7 +142,7 @@ var CMS = {
   renderPosts: function () {
     CMS.posts.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
     CMS.posts.forEach(function (post){
-      var tpl = $('#post-template').html(),
+      var tpl = $(document.getElementById('post-template')).html(),
         $tpl = $(tpl);
 
       var title = '<a href="#">' + post.title + '</a>',
@@ -174,7 +174,7 @@ var CMS = {
   },
 
   renderError: function (msg) {
-    var tpl = $('#error-template').html(),
+    var tpl = $(document.getElementById('error-template')).html(),
       $tpl = $(tpl);
 
     $tpl.find('.error_text').html(msg);
@@ -390,10 +390,10 @@ var CMS = {
     navBuilder.push('</ul>');
     var nav = navBuilder.join('');
 
-    $('.cms_nav').html(nav).hide().fadeIn(CMS.settings.fadeSpeed);
+    $(document.getElementsByClassName('cms_nav')).html(nav);
 
     // Set onclicks for nav links
-    $.each($('.cms_nav_link'), function (k, link) {
+    $.each($(document.getElementsByClassName('cms_nav_link')), function (k, link) {
       var title =  $(this).attr('id');
       $(this).on('click', function (e) {
         e.preventDefault();
