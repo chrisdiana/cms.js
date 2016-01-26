@@ -123,7 +123,7 @@ var CMS = {
   },
 
   renderPost: function (id) {
-    CMS.posts.forEach(function (post){
+    CMS.posts.forEach(function (post) {
       if (post.id == id) {
 
         var tpl = $(document.getElementById('post-template')).html(),
@@ -397,7 +397,6 @@ var CMS = {
         e.preventDefault();
         window.location.hash = 'page/' + title;
       });
-
     });
   },
 
@@ -433,7 +432,7 @@ var CMS = {
   },
 
   init: function (options) {
-    if ($.isPlainObject(options)) {
+    if (!(options instanceof Array)) {
       return this.extend(this.settings, options, function () {
         CMS.generateSite();
       });
@@ -441,4 +440,3 @@ var CMS = {
   }
 
 };
-
