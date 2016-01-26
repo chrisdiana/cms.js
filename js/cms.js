@@ -106,8 +106,8 @@ var CMS = {
   },
 
   renderPage: function (title) {
-    CMS.pages.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
-    CMS.pages.forEach(function (page){
+    CMS.pages.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.pages.forEach(function (page) {
       if (page.title == title) {
 
         var tpl = $(document.getElementById('page-template')).html(),
@@ -140,8 +140,8 @@ var CMS = {
   },
 
   renderPosts: function () {
-    CMS.posts.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
-    CMS.posts.forEach(function (post){
+    CMS.posts.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.posts.forEach(function (post) {
       var tpl = $(document.getElementById('post-template')).html(),
         $tpl = $(tpl);
 
@@ -179,7 +179,7 @@ var CMS = {
 
     $tpl.find('.error_text').html(msg);
 
-    CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function (){
+    CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function () {
       CMS.settings.mainContainer.html($tpl).fadeIn(CMS.settings.fadeSpeed);
     });
   },
@@ -225,7 +225,7 @@ var CMS = {
     });
 
     // Drop data we don't need
-    data.splice(0,2);
+    data.splice(0, 2);
 
     // Put everything back together if broken
     var contentData = data.join();
@@ -341,11 +341,11 @@ var CMS = {
         var counter = 0,
           numFiles = files.length;
 
-        if (files.length > 0) {
-          $(files).each(function (k, file) {
+        if (numFiles > 0) {
+          for (var file of files) {
             counter++;
             CMS.getContent(type, file, counter, numFiles);
-          });
+          }
         } else {
           var errorMsg = 'Error loading ' + type + 's in directory. Make sure ' +
             'there are Markdown ' + type + 's in the ' + type + 's folder.';
@@ -373,10 +373,8 @@ var CMS = {
     CMS.settings.siteNavItems.forEach(function (navItem) {
       if (navItem.hasOwnProperty('href')) {
         navBuilder.push('<li><a href="', navItem.href, '"');
-        if (navItem.hasOwnProperty('newWindow')) {
-          if (navItem.newWindow) {
-            navBuilder.push('target="_blank"');
-          }
+        if (navItem.hasOwnProperty('newWindow') && navItem.newWindow) {
+          navBuilder.push('target="_blank"');
         }
         navBuilder.push('>', navItem.name, '</a></li>');
       } else {
@@ -394,7 +392,7 @@ var CMS = {
 
     // Set onclicks for nav links
     $.each($(document.getElementsByClassName('cms_nav_link')), function (k, link) {
-      var title =  $(this).attr('id');
+      var title = $(this).attr('id');
       $(this).on('click', function (e) {
         e.preventDefault();
         window.location.hash = 'page/' + title;
@@ -409,12 +407,8 @@ var CMS = {
       var value;
 
       // Set brand
-      if (attribute.attr == '.cms_sitename') {
-        if (attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
-          value = '<img src="' + attribute.value + '" />';
-        } else {
-          value = attribute.value;
-        }
+      if (attribute.attr == '.cms_sitename' && attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
+        value = '<img src="' + attribute.value + '" />';
       } else {
         value = attribute.value;
       }
@@ -428,7 +422,7 @@ var CMS = {
 
     var types = ['post', 'page'];
 
-    types.forEach(function (type){
+    types.forEach(function (type) {
       CMS.getFiles(type);
     });
 
