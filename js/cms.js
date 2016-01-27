@@ -23,8 +23,8 @@ var CMS = {
     postSnippetLength: 120,
     pagesFolder: 'pages',
     fadeSpeed: 300,
-    mainContainer: $('.cms_main'),
-    footerContainer: $('.cms_footer'),
+    mainContainer: $(document.getElementsByClassName('cms_main')),
+    footerContainer: $(document.getElementsByClassName('cms_footer')),
     footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
     parseSeperator: '---',
     postsOnFrontpage: true,
@@ -106,11 +106,11 @@ var CMS = {
   },
 
   renderPage: function (title) {
-    CMS.pages.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
-    CMS.pages.forEach(function (page){
+    CMS.pages.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.pages.forEach(function (page) {
       if (page.title == title) {
 
-        var tpl = $('#page-template').html(),
+        var tpl = $(document.getElementById('page-template')).html(),
           $tpl = $(tpl);
 
         $tpl.find('.page-title').html(page.title);
@@ -123,10 +123,10 @@ var CMS = {
   },
 
   renderPost: function (id) {
-    CMS.posts.forEach(function (post){
+    CMS.posts.forEach(function (post) {
       if (post.id == id) {
 
-        var tpl = $('#post-template').html(),
+        var tpl = $(document.getElementById('post-template')).html(),
           $tpl = $(tpl);
 
         $tpl.find('.post-title').html(post.title);
@@ -140,9 +140,9 @@ var CMS = {
   },
 
   renderPosts: function () {
-    CMS.posts.sort(function (a,b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
-    CMS.posts.forEach(function (post){
-      var tpl = $('#post-template').html(),
+    CMS.posts.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.posts.forEach(function (post) {
+      var tpl = $(document.getElementById('post-template')).html(),
         $tpl = $(tpl);
 
       var title = '<a href="#">' + post.title + '</a>',
@@ -174,12 +174,12 @@ var CMS = {
   },
 
   renderError: function (msg) {
-    var tpl = $('#error-template').html(),
+    var tpl = $(document.getElementById('error-template')).html(),
       $tpl = $(tpl);
 
     $tpl.find('.error_text').html(msg);
 
-    CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function (){
+    CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function () {
       CMS.settings.mainContainer.html($tpl).fadeIn(CMS.settings.fadeSpeed);
     });
   },
@@ -225,7 +225,7 @@ var CMS = {
     });
 
     // Drop data we don't need
-    data.splice(0,2);
+    data.splice(0, 2);
 
     // Put everything back together if broken
     var contentData = data.join();
@@ -341,11 +341,11 @@ var CMS = {
         var counter = 0,
           numFiles = files.length;
 
-        if (files.length > 0) {
-          $(files).each(function (k, file) {
+        if (numFiles > 0) {
+          for (var file of files) {
             counter++;
             CMS.getContent(type, file, counter, numFiles);
-          });
+          }
         } else {
           var errorMsg = 'Error loading ' + type + 's in directory. Make sure ' +
             'there are Markdown ' + type + 's in the ' + type + 's folder.';
@@ -373,10 +373,8 @@ var CMS = {
     CMS.settings.siteNavItems.forEach(function (navItem) {
       if (navItem.hasOwnProperty('href')) {
         navBuilder.push('<li><a href="', navItem.href, '"');
-        if (navItem.hasOwnProperty('newWindow')) {
-          if (navItem.newWindow) {
-            navBuilder.push('target="_blank"');
-          }
+        if (navItem.hasOwnProperty('newWindow') && navItem.newWindow) {
+          navBuilder.push('target="_blank"');
         }
         navBuilder.push('>', navItem.name, '</a></li>');
       } else {
@@ -390,16 +388,15 @@ var CMS = {
     navBuilder.push('</ul>');
     var nav = navBuilder.join('');
 
-    $('.cms_nav').html(nav).hide().fadeIn(CMS.settings.fadeSpeed);
+    $(document.getElementsByClassName('cms_nav')).html(nav);
 
     // Set onclicks for nav links
-    $.each($('.cms_nav_link'), function (k, link) {
-      var title =  $(this).attr('id');
+    $.each($(document.getElementsByClassName('cms_nav_link')), function (k, link) {
+      var title = $(this).attr('id');
       $(this).on('click', function (e) {
         e.preventDefault();
         window.location.hash = 'page/' + title;
       });
-
     });
   },
 
@@ -409,12 +406,8 @@ var CMS = {
       var value;
 
       // Set brand
-      if (attribute.attr == '.cms_sitename') {
-        if (attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
-          value = '<img src="' + attribute.value + '" />';
-        } else {
-          value = attribute.value;
-        }
+      if (attribute.attr == '.cms_sitename' && attribute.value.match(/\.(jpeg|jpg|gif|png)$/)) {
+        value = '<img src="' + attribute.value + '" />';
       } else {
         value = attribute.value;
       }
@@ -428,7 +421,7 @@ var CMS = {
 
     var types = ['post', 'page'];
 
-    types.forEach(function (type){
+    types.forEach(function (type) {
       CMS.getFiles(type);
     });
 
@@ -439,7 +432,7 @@ var CMS = {
   },
 
   init: function (options) {
-    if ($.isPlainObject(options)) {
+    if (!(options instanceof Array)) {
       return this.extend(this.settings, options, function () {
         CMS.generateSite();
       });
@@ -447,4 +440,3 @@ var CMS = {
   }
 
 };
-
