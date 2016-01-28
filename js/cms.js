@@ -54,6 +54,14 @@ var CMS = {
   posts: [],
   pages: [],
   loaded: {},
+  
+  models: {
+    file: {
+      name: '',
+      link: '',
+      date: undefined
+    }
+  },
 
   extend: function (target, opts, callback) {
     var next;
@@ -249,17 +257,10 @@ var CMS = {
 
   getContent: function (type, file, counter, numFiles) {
 
-    var urlFolder = '',
-        url;
+    var url;
 
-    switch(type) {
-      case 'post':
-        urlFolder = CMS.settings.postsFolder;
-        break;
-      case 'page':
-        urlFolder = CMS.settings.pagesFolder;
-        break;
-    }
+    if(!CMS.models.file.isPrototypeOf(file))
+      throw new TypeError('file argument is not a of type CMS.models.file. ' + file);
 
     if (CMS.settings.mode == 'Github') {
       url = file.link;
@@ -320,7 +321,8 @@ var CMS = {
         $(linkFiles).each(function (k, f) {
 
           var filename,
-            downloadLink;
+            downloadLink,
+            file = Object.create(CMS.models.file);
 
           if (CMS.settings.mode == 'Github') {
             filename = f.name;
@@ -330,7 +332,6 @@ var CMS = {
           }
 
           if (filename.endsWith('.md')) {
-            var file = {};
             file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
             file.name = filename;
             if (downloadLink) {
