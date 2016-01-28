@@ -64,6 +64,32 @@ var CMS = {
         return CMS.settings.mode == 'Github' ? this.link : this.name;
       }
     },
+
+    folder: {
+      getUrl: function(type) {
+        var folder,
+          url;
+
+        switch(type) {
+          case 'post':
+            folder = CMS.settings.postsFolder;
+            break;
+          case 'page':
+            folder = CMS.settings.pagesFolder;
+            break;
+        }
+        
+        if (CMS.settings.mode == 'Github') {
+          var gus = CMS.settings.githubUserSettings,
+            gs = CMS.settings.githubSettings;
+          url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
+        } else {
+          url = location.pathname + folder;
+        }
+
+        return url;
+      }
+    }
   },
 
   extend: function (target, opts, callback) {
@@ -281,25 +307,8 @@ var CMS = {
 
   getFiles: function (type) {
 
-    var folder = '',
-      url = '';
-
-    switch(type) {
-      case 'post':
-        folder = CMS.settings.postsFolder;
-        break;
-      case 'page':
-        folder = CMS.settings.pagesFolder;
-        break;
-    }
-
-    if (CMS.settings.mode == 'Github') {
-      var gus = CMS.settings.githubUserSettings,
-        gs = CMS.settings.githubSettings;
-      url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
-    } else {
-      url = folder;
-    }
+    var folder = Object.create(CMS.models.folder),
+      url = folder.getUrl(type);
 
     $.ajax({
       url: url,
