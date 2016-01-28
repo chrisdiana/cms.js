@@ -59,8 +59,11 @@ var CMS = {
     file: {
       name: '',
       link: '',
-      date: undefined
-    }
+      date: undefined,
+      get url() {
+        return CMS.settings.mode == 'Github' ? this.link : this.name;
+      }
+    },
   },
 
   extend: function (target, opts, callback) {
@@ -257,16 +260,10 @@ var CMS = {
 
   getContent: function (type, file, counter, numFiles) {
 
-    var url;
-
     if(!CMS.models.file.isPrototypeOf(file))
       throw new TypeError('file argument is not a of type CMS.models.file. ' + file);
 
-    if (CMS.settings.mode == 'Github') {
-      url = file.link;
-    } else {
-      url = file.name;
-    }
+    var url = file.url;
 
     $.ajax({
       type: 'GET',
@@ -322,7 +319,7 @@ var CMS = {
 
           var filename,
             downloadLink,
-            file = Object.create(CMS.models.file);
+            file;
 
           if (CMS.settings.mode == 'Github') {
             filename = f.name;
@@ -332,6 +329,7 @@ var CMS = {
           }
 
           if (filename.endsWith('.md')) {
+            file = Object.create(CMS.models.file);
             file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
             file.name = filename;
             if (downloadLink) {
