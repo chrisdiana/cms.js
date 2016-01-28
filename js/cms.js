@@ -84,7 +84,7 @@ var CMS = {
             gs = CMS.settings.githubSettings;
           url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
         } else {
-          url = location.pathname + folder;
+          url = location.pathname + folder.replace(/^\//, '');
         }
 
         return url;
