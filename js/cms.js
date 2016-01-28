@@ -250,7 +250,7 @@ var CMS = {
   getContent: function (type, file, counter, numFiles) {
 
     var urlFolder = '',
-        url;
+      url;
 
     switch(type) {
       case 'post':
@@ -264,7 +264,7 @@ var CMS = {
     if (CMS.settings.mode == 'Github') {
       url = file.link;
     } else {
-      url = file.name;
+      url = urlFolder + '/' + file.name;
     }
 
     $.ajax({
