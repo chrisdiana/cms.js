@@ -5,6 +5,7 @@
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
+'use strict';
 
 var CMS = {
 
@@ -248,7 +249,8 @@ var CMS = {
 
   getContent: function (type, file, counter, numFiles) {
 
-    var urlFolder = '';
+    var urlFolder = '',
+        url;
 
     switch(type) {
       case 'post':
@@ -262,7 +264,7 @@ var CMS = {
     if (CMS.settings.mode == 'Github') {
       url = file.link;
     } else {
-      url = urlFolder + '/' + file.name;
+      url = file.name;
     }
 
     $.ajax({
@@ -306,7 +308,8 @@ var CMS = {
       success: function (data) {
 
         var files = [],
-          linkFiles;
+          linkFiles,
+          dateParser = /\d{4}-\d{2}(?:-d{2})?/; // can parse both 2016-01 and 2016-01-01
 
         if (CMS.settings.mode == 'Github') {
           linkFiles = data;
@@ -328,7 +331,7 @@ var CMS = {
 
           if (filename.endsWith('.md')) {
             var file = {};
-            file.date = new Date(filename.substring(0, 10));
+            file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
             file.name = filename;
             if (downloadLink) {
               file.link = downloadLink;
