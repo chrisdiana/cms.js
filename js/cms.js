@@ -361,9 +361,9 @@ var CMS = {
           errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
             'your Github settings are correctly set in your config.js file.';
         } else {
-          errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
-            type + 's directory is set correctly in config and .htaccess is in ' +
-            type + 's directory with Apache "Options Indexes" set on.';
+          errorMsg = 'Error loading the ' + type + 's directory. Make sure ' +
+            'the ' + type + 's directory is set correctly in config and  ' +
+            'the ' + type + 's directory indexing feature is enabled.';
         }
         CMS.renderError(errorMsg);
       }

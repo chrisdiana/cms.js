@@ -16,17 +16,23 @@ Check out a working [demo here](http://cdmedia.github.io/cms.js/demo/)
 
 ## Quick Start
 
-CMS.js currently supports two website modes, Github and Apache.
+CMS.js currently supports two website modes, Github and Server.
 
 **Github Mode**
 
 This is the default mode for CMS.js. Host your website on Github using
 Github Pages, similar to Jekyll.
 
-**Apache Mode**
+**Server Mode**
 
-Use apache mode if you choose to self host your content. If you choose this option,
-*make sure Apache with htaccess is enabled*.
+Use server mode if you choose to self host your content. Apache and NGINX servers are supported.
+If using server mode, make sure the server's directory indexing feature is enabled.
+
+* Apache - Make sure `htaccess` is enabled OR `Options Indexes` is set for your directory.
+* NGINX - Make sure `autoindex on` is set for your directory
+
+More info on server setup is available on the [wiki](https://github.com/cdmedia/cms.js/wiki/Server-Support-&-Setup)
+
 
 **Install**
 
@@ -45,9 +51,9 @@ Use apache mode if you choose to self host your content. If you choose this opti
 In Github mode, CMS.js uses the Github API to get the content of your gh-pages repo
 and serve them as a full website.
 
-**Apache Mode**
+**Server Mode**
 
-In Apache mode, CMS.js takes advantage of Apache's Directory Indexing feature. By allowing indexes,
+In Server mode, CMS.js takes advantage of the Server's Directory Indexing feature. By allowing indexes,
 CMS.js sends an AJAX call to your specified folders and looks for Markdown files.
 After they are found, it takes care of everything else and delivers a full website.
 

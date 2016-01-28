@@ -47,7 +47,7 @@ $(function() {
     // Site footer text
     footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
 
-    // Mode 'Github' for Github Pages, 'Apache' for Apache server. Defaults
+    // Mode 'Github' for Github Pages, 'Server' for Self Hosted. Defaults
     // to Github
     mode: 'Github',
 
