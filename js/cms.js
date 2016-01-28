@@ -252,14 +252,14 @@ var CMS = {
     var urlFolder = '',
         url;
 
-    switch(type) {
-      case 'post':
-        urlFolder = CMS.settings.postsFolder;
-        break;
-      case 'page':
-        urlFolder = CMS.settings.pagesFolder;
-        break;
-    }
+    // switch(type) {
+    //   case 'post':
+    //     urlFolder = CMS.settings.postsFolder;
+    //     break;
+    //   case 'page':
+    //     urlFolder = CMS.settings.pagesFolder;
+    //     break;
+    // }
 
     if (CMS.settings.mode == 'Github') {
       url = file.link;
