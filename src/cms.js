@@ -1,3 +1,6 @@
+window.$ = require('jquery');
+window.marked = require('marked');
+
 /*
  * CMS.js v1.0.0
  * Copyright 2015 Chris Diana
@@ -7,7 +10,7 @@
  */
 'use strict';
 
-var CMS = {
+window.CMS = {
 
   settings: {
     siteName: 'CMS.js',

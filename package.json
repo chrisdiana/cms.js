@@ -1,0 +1,31 @@
+{
+  "name": "CMS.js",
+  "description": "The Javascript CMS.",
+  "version": "1.0.0",
+  "homepage": "http://cdmedia.github.io/cms.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cdmedia/cms.js"
+  },
+  "bin": {
+    "cmsjs": "./src/cli.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "gulp"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs-extra": "^0.26.5",
+    "jquery": "^2.2.0",
+    "marked": "^0.3.5"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.3.1",
+    "gulp-notify": "^2.2.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  }
+}
