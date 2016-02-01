@@ -264,7 +264,7 @@ var CMS = {
     if (CMS.settings.mode == 'Github') {
       url = file.link;
     } else {
-      url = urlFolder + '/' + file.name;
+      url = file.name.indexOf(urlFolder) > -1 ? file.name : urlFolder + '/' + file.name;
     }
 
     $.ajax({
