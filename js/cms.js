@@ -329,7 +329,7 @@ var CMS = {
             filename = $(f).attr('href');
           }
 
-          if (filename.endsWith('.md')) {
+          if (filename.split('.').pop() === 'md') {
             var file = {};
             file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
             file.name = filename;
