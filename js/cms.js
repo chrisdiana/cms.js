@@ -211,17 +211,16 @@ var CMS = {
 
     // Get content info
     var infoData = data[1].split(/[\n\r]+/);
-
-    $.each(infoData, function (k, v) {
+    infoData.forEach(function (v) {
       if (v.length) {
         v.replace(/^\s+|\s+$/g, '').trim();
         var i = v.split(':');
         var val = v.slice(v.indexOf(':')+1);
-        k = i[0];
+        infoData = i[0];
 
-        val = (k == 'date' ? (new Date(val)) : val);
+        val = (infoData == 'date' ? (new Date(val)) : val);
 
-        contentObj[k] = (val.trim ? val.trim() : val);
+        contentObj[infoData] = (val.trim ? val.trim() : val);
       }
     });
 
@@ -247,6 +246,26 @@ var CMS = {
     }
   },
 
+  get: function (url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.onerror = function() {
+      return 'Network Error';
+    }
+    request.send();
+    return {
+      then: function (success, error) {
+        request.onload = function () {
+          if (request.status == 200) {
+            success(request.response);
+          } else {
+            error();
+          }
+        }
+      }
+    }
+  },
+
   getContent: function (type, file, counter, numFiles) {
 
     var urlFolder = '',
@@ -267,18 +286,16 @@ var CMS = {
       url = file.name;
     }
 
-    $.ajax({
-      type: 'GET',
-      url: url,
-      dataType: 'html',
-      success: function (content) {
+    CMS.get(url).then(
+      function success(content) {
         CMS.parseContent(content, type, file, counter, numFiles);
       },
-      error: function () {
+      function error() {
         var errorMsg = 'Error loading ' + type + ' content';
         CMS.renderError(errorMsg);
       }
-    });
+    );
+
   },
 
   getFiles: function (type) {
@@ -303,22 +320,20 @@ var CMS = {
       url = folder;
     }
 
-    $.ajax({
-      url: url,
-      success: function (data) {
+    CMS.get(url).then(
+      function success(data) {
 
         var files = [],
           linkFiles,
           dateParser = /\d{4}-\d{2}(?:-d{2})?/; // can parse both 2016-01 and 2016-01-01
 
         if (CMS.settings.mode == 'Github') {
-          linkFiles = data;
+          linkFiles = JSON.parse(data);
         } else {
           linkFiles = $(data).find('a');
         }
-
-        $(linkFiles).each(function (k, f) {
-
+        for (var i = 0; i < linkFiles.length; i++) {
+          var f = linkFiles[i];
           var filename,
             downloadLink;
 
@@ -339,13 +354,12 @@ var CMS = {
             files.push(file);
           }
 
-        });
+        }
 
         var counter = 0,
           numFiles = files.length;
-
         if (numFiles > 0) {
-          for (var file of files) {
+          for (var i = 0; i < numFiles; i++) {
             counter++;
             CMS.getContent(type, file, counter, numFiles);
           }
@@ -355,7 +369,7 @@ var CMS = {
           CMS.renderError(errorMsg);
         }
       },
-      error: function () {
+      function error() {
         var errorMsg;
         if (CMS.settings.mode == 'Github') {
           errorMsg = 'Error loading ' + type + 's directory. Make sure ' +
@@ -367,7 +381,7 @@ var CMS = {
         }
         CMS.renderError(errorMsg);
       }
-    });
+    );
   },
 
   setNavigation: function () {
@@ -391,16 +405,17 @@ var CMS = {
     navBuilder.push('</ul>');
     var nav = navBuilder.join('');
 
-    $(document.getElementsByClassName('cms_nav')).html(nav);
+    document.querySelector('.cms_nav').innerHTML = nav;
 
     // Set onclicks for nav links
-    $.each($(document.getElementsByClassName('cms_nav_link')), function (k, link) {
-      var title = $(this).attr('id');
-      $(this).on('click', function (e) {
+    var elements = document.getElementsByClassName('cms_nav_link');
+    for (var i = 0; i < elements.length; i++) {
+      var title = elements[i].getAttribute('id');
+      elements[i].onclick = function (e) {
         e.preventDefault();
         window.location.hash = 'page/' + title;
-      });
-    });
+      }
+    }
   },
 
   setSiteAttributes: function () {
