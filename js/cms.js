@@ -360,6 +360,7 @@ var CMS = {
           numFiles = files.length;
         if (numFiles > 0) {
           for (var i = 0; i < numFiles; i++) {
+            var file = files[i];
             counter++;
             CMS.getContent(type, file, counter, numFiles);
           }
