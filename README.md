@@ -5,7 +5,7 @@ that uses plain ol' HTML, CSS and Javascript to generate your website. CMS.js is
 It takes your content, renders Markdown and delivers a complete website in Single-Page
 App fashion...without the aid of server-side scripting (no Node.js, PHP, Ruby, etc.).
 
-##What to Use CMS.js for and when to Use It
+
 The blog using CMS.js doesn't need a database. You can write post in plain words, then CMS.js helps render it into markdown file and then use template to display content in certain format. All the pages are static, this means they are not the query results from the database, so the loading speed is faster. Also it only includes the fucntions you want to use(unlike WordPress, it has many defualt functions). Moreover, you can just host the blog in GitHub conveniently and edit your content through it.
 
 ![CMS.js Screenshot](https://raw.githubusercontent.com/cdmedia/cms.js/gh-pages/img/screenshot.png)
