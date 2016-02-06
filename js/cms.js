@@ -250,7 +250,7 @@ var CMS = {
   getContent: function (type, file, counter, numFiles) {
 
     var urlFolder = '',
-        url;
+      url;
 
     // switch(type) {
     //   case 'post':
@@ -264,7 +264,7 @@ var CMS = {
     if (CMS.settings.mode == 'Github') {
       url = file.link;
     } else {
-      url = file.name;
+      url = file.name.indexOf(urlFolder) > -1 ? file.name : urlFolder + '/' + file.name;
     }
 
     $.ajax({
@@ -329,7 +329,7 @@ var CMS = {
             filename = $(f).attr('href');
           }
 
-          if (filename.endsWith('.md')) {
+          if (filename.split('.').pop() === 'md') {
             var file = {};
             file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
             file.name = filename;
