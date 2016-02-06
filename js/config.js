@@ -51,11 +51,17 @@ $(function() {
     // to Github
     mode: 'Github',
 
-    // If Github mode is set, your Github username and repo name. Defaults
-    // to Github pages branch (gh-pages)
+     // If Github mode is set, your Github username and repo name.
     githubUserSettings: {
       username: 'yourusername',
       repo: 'yourrepo'
+    },
+
+    // If Github mode is set, choose which Github branch to get files from.
+    // Defaults to Github pages branch (gh-pages)
+    githubSettings: {
+      branch: 'gh-pages',
+      host: 'https://api.github.com'
     }
 
   });

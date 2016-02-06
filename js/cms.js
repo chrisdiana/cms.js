@@ -289,7 +289,23 @@ var CMS = {
     if(!CMS.models.file.isPrototypeOf(file))
       throw new TypeError('file argument is not a of type CMS.models.file. ' + file);
 
-    var url = file.url;
+    var url = file.url,
+      urlFolder = '';
+
+    switch(type) {
+     case 'post':
+       urlFolder = CMS.settings.postsFolder;
+       break;
+     case 'page':
+       urlFolder = CMS.settings.pagesFolder;
+       break;
+    }
+
+    if (CMS.settings.mode == 'Github') {
+      url = file.link;
+    } else {
+      url = file.name.indexOf(urlFolder) > -1 ? file.name : urlFolder + '/' + file.name;
+    }
 
     $.ajax({
       type: 'GET',
@@ -337,7 +353,7 @@ var CMS = {
             filename = $(f).attr('href');
           }
 
-          if (filename.endsWith('.md')) {
+          if (filename.split('.').pop() === 'md') {
             file = Object.create(CMS.models.file);
             file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
             file.name = filename;
