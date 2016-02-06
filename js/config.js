@@ -1,3 +1,5 @@
+/* global CMS */
+
 $(function() {
 
   CMS.init({
