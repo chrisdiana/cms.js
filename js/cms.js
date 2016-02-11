@@ -156,8 +156,8 @@ var CMS = {
       }
 
       tpl.childNodes[1].innerHTML = title;
-      tpl.childNodes[3].innerHTML = snippet;
-      tpl.childNodes[5].innerHTML = date;
+      tpl.childNodes[3].innerHTML = date;
+      tpl.childNodes[5].innerHTML = snippet;
 
       CMS.settings.mainContainer.append(tpl).hide().fadeIn(CMS.settings.fadeSpeed);
     });
