@@ -23,8 +23,11 @@ $(function() {
     // Posts folder name
     postsFolder: 'posts',
 
-    // Homepage posts snippet length
+    // Homepage posts snippet length (this doesn't appear to do anything)
     postSnippetLength: 120,
+
+    // Homepage post preview cuttoff (string or regex, defaults to <!--more-->)
+    postSnippetSeparator: /\s*<!--\s*more\s*-->/,
 
     // Pages folder name
     pagesFolder: 'pages',
@@ -49,7 +52,7 @@ $(function() {
 
     // Mode 'Github' for Github Pages, 'Server' for Self Hosted. Defaults
     // to Github
-    mode: 'Github',
+    mode: 'Apache',
 
      // If Github mode is set, your Github username and repo name.
     githubUserSettings: {
@@ -73,7 +76,7 @@ $(function() {
     tables: true,
     breaks: false,
     pedantic: false,
-    sanitize: true,
+    sanitize: false,
     smartLists: true,
     smartypants: false
   });

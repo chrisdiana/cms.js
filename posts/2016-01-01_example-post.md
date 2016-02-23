@@ -8,6 +8,9 @@ Ball tip bresaola biltong turkey andouille picanha, fatback capicola ham hock te
 
 > Biltong meatloaf pork chop, short loin ham pancetta beef shank ball tip sausage bresaola.
 
+
+<!-- more -->
+
 ## The Bacon
 
 Leberkas brisket shankle salami short loin meatball kevin ham bacon drumstick shank turkey filet mignon strip steak porchetta.

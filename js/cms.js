@@ -22,6 +22,7 @@ var CMS = {
     pagination: 3,
     postsFolder: 'posts',
     postSnippetLength: 120,
+    postSnippetSeparator: /\s*<!--\s*more\s*-->/,
     pagesFolder: 'pages',
     fadeSpeed: 300,
     mainContainer: $(document.getElementsByClassName('cms_main')),
@@ -143,16 +144,19 @@ var CMS = {
   renderPosts: function () {
     CMS.posts.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
     CMS.posts.forEach(function (post) {
-      var tpl = $(document.getElementById('post-template')).html(),
-        $tpl = $(tpl);
+      var tpl = $(document.getElementById('post-template')).html();
+      var $tpl = $(tpl);
 
-      var title = '<a href="#">' + post.title + '</a>',
-        date = (post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear(),
-        snippet = post.contentData.split('.')[0] + '.';
+      var title = '<a href="#">' + post.title + '</a>';
+      var date = (post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear();
+      var snippet = post.contentData.split('.')[0] + '.';
+      if(typeof CMS.settings.postSnippetSeparator === 'object' || typeof CMS.settings.postSnippetSeparator === 'string') {
+        snippet = post.contentData.split(CMS.settings.postSnippetSeparator)[0];
+      } 
 
-      var postLink = $tpl.find('.post-title'),
-        postDate = $tpl.find('.post-date'),
-        postSnippet = $tpl.find('.post-content');
+      var postLink = $tpl.find('.post-title');
+      var postDate = $tpl.find('.post-date');
+      var postSnippet = $tpl.find('.post-content');
 
       postLink.on('click', function (e) {
         e.preventDefault();
