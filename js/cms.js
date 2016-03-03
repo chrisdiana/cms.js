@@ -28,7 +28,7 @@ var CMS = {
     mainContainer: $(document.getElementsByClassName('cms_main')),
     footerContainer: $(document.getElementsByClassName('cms_footer')),
     footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
-    parseSeperator: '---',
+    parseSeperator: /[\n\r]+---\s/,
     postsOnFrontpage: true,
     pageAsFrontpage: '',
     postsOnUrl: '',
@@ -211,36 +211,40 @@ var CMS = {
 
   parseContent: function (content, type, file, counter, numFiles) {
 
-    var data = content.split(CMS.settings.parseSeperator),
-      contentObj = {},
-      id = counter,
-      date = file.date;
+    var data;
+    var yamlSeperation = CMS.settings.parseSeperator.exec(content);
+    var contentObj = {};
+    var id = counter;
+    var date = file.date;
 
     contentObj.id = id;
     contentObj.date = date;
 
-    // Get content info
-    var infoData = data[1].split(/[\n\r]+/);
+    // If null there is no front matter on this page/post.
+    if(yamlSeperation !== null) {
+      data = content.substr(yamlSeperation.index + 5, content.length);
 
-    $.each(infoData, function (k, v) {
-      if (v.length) {
-        v.replace(/^\s+|\s+$/g, '').trim();
-        var i = v.split(':');
-        var val = v.slice(v.indexOf(':')+1);
-        k = i[0];
+      // Get content info
+      var infoData = content.substr(3, yamlSeperation.index - 3).split(/[\n\r]+/);
 
-        val = (k == 'date' ? (new Date(val)) : val);
+      $.each(infoData, function (k, v) {
+        if (v.length) {
+          v.replace(/^\s+|\s+$/g, '').trim();
+          var i = v.split(':');
+          var val = v.slice(v.indexOf(':')+1);
+          k = i[0];
 
-        contentObj[k] = (val.trim ? val.trim() : val);
-      }
-    });
+          val = (k == 'date' ? (new Date(val)) : val);
 
-    // Drop data we don't need
-    data.splice(0, 2);
+          contentObj[k] = (val.trim ? val.trim() : val);
+        }
+      });
+    } else {
+      data = content;
+    }
 
     // Put everything back together if broken
-    var contentData = data.join();
-    contentObj.contentData = marked(contentData);
+    contentObj.contentData = marked(data);
 
     switch(type) {
       case 'post':
