@@ -3,16 +3,12 @@ layout: post
 title: Another Example post
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris a varius lorem. Sed pellentesque leo
-arcu, sit amet faucibus arcu sodales id. Suspendisse imperdiet at enim sed vestibulum. Sed in felis
-mollis, facilisis metus at, egestas mi. Praesent nec tortor magna. Proin hendrerit ipsum at sagittis
-tincidunt. Vestibulum vitae erat iaculis, eleifend mauris eu, pretium lacus. Nunc accumsan dignissim
-justo sed vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-turpis egestas. Fusce tincidunt eros quis nulla efficitur viverra. Sed mattis mi vel velit iaculis
-fermentum. In ultrices odio id pharetra ornare. Integer scelerisque nulla eget venenatis placerat.
-Donec eget justo ullamcorper, feugiat ex ut, aliquet mi. Aenean vel magna in mi tempus pulvinar.
+This post has both types of H2 headers markdown allows, uses `<!-- more -->` as a snippet
+separator, and has Windows line ending.
 
 <!--more-->
+
+## A H2 Header
 
 Pellentesque accumsan diam a pharetra pretium. Suspendisse scelerisque euismod odio, pulvinar
 fermentum magna consectetur eget. Aliquam tempus, est in sollicitudin tincidunt, mi turpis feugiat
@@ -22,6 +18,10 @@ lectus, ultricies vitae bibendum nec, consequat et arcu. Nunc fringilla accumsan
 Cras rhoncus, dui eget dignissim interdum, dui nisl pellentesque ante, et commodo sem ligula at
 nisi. Donec eget varius ipsum. Nullam et lorem mattis, tempus augue vitae, facilisis justo.
 Pellentesque dignissim ex quis consequat euismod. Integer in fringilla nunc.
+
+
+The other H2 Header
+-------------------
 
 Quisque sodales turpis sit amet metus dictum, sed auctor sapien placerat. Aliquam vitae nisi
 maximus, congue felis vitae, blandit elit. Nunc lobortis sagittis ex sit amet porta. Quisque
