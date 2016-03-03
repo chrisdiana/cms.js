@@ -149,10 +149,10 @@ var CMS = {
 
       var title = '<a href="#">' + post.title + '</a>';
       var date = (post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear();
-      var snippet = post.contentData.split('.')[0] + '.';
+      var snippet = '';
       if(typeof CMS.settings.postSnippetSeparator === 'object' || typeof CMS.settings.postSnippetSeparator === 'string') {
         snippet = post.contentData.split(CMS.settings.postSnippetSeparator)[0];
-      } 
+      }
 
       var postLink = $tpl.find('.post-title');
       var postDate = $tpl.find('.post-date');
@@ -163,9 +163,15 @@ var CMS = {
         window.location.hash = 'post/' + post.id;
       });
 
+      $tpl.append('<a href="#">read more...</a>').on('click', function(e) {
+        e.preventDefault();
+        window.location.hash = 'post/' + post.id;
+      });
+
       postLink.html(title);
       postSnippet.html(snippet);
       postDate.html(date);
+
       CMS.settings.mainContainer.append($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
     });
     CMS.renderFooter();
