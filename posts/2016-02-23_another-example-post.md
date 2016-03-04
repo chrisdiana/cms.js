@@ -73,7 +73,6 @@ I start my morning with a cup of coffee and
 
 ![alt text](/path/to/img.jpg "Title")
 
-
 ![alt text][id]
 
 [id]: /path/to/img.jpg "Title"

@@ -17,6 +17,7 @@ $(function() {
     // Navigation items
     siteNavItems: [
       { name: 'Github', href: 'https://github.com/yourname', newWindow: false},
+      { name: 'Another Page'},
       { name: 'About'}
     ],
 

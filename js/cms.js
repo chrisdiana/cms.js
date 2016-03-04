@@ -71,28 +71,60 @@ var CMS = {
     return target;
   },
 
-  render: function (url) {
+  updateUrl: function(key, value, url) {
+    if (!url) url = window.location.href;
+    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi");
+    var hash;
+
+    if (re.test(url)) {
+      if (typeof value !== 'undefined' && value !== null) {
+        return url.replace(re, '$1' + key + "=" + value + '$2$3');
+      } else {
+        hash = url.split('#');
+        url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+        if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+          url += '#' + hash[1];
+        }
+        return url;
+      }
+    } else {
+      if (typeof value !== 'undefined' && value !== null) {
+        var separator = url.indexOf('?') !== -1 ? '&' : '?';
+        hash = url.split('#');
+        url = hash[0] + separator + key + '=' + value;
+        if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+          url += '#' + hash[1];
+        }
+
+        return url;
+      } else {
+        return url;
+      }
+    }
+  },
+
+  render: function(url) {
     CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed);
     CMS.settings.footerContainer.hide();
 
-    var type = url.split('/')[0];
+    var type = url.substr(url.lastIndexOf('/'), 6);
 
     var map = {
 
-      // Main view / Frontpage
-      '' : function () {
-          CMS.renderPosts();
+      // Main view
+      '/' : function () {
+        CMS.renderPosts();
       },
 
-      // Post view / single view
-      '#post' : function () {
-        var id = url.split('#post/')[1].trim();
+      // Post view
+      '/?post' : function () {
+        var id = url.split('?post=')[1].trim();
         CMS.renderPost(id);
       },
 
       // Page view
-      '#page' : function () {
-        var title = url.split('#page/')[1].trim();
+      '/?page' : function () {
+        var title = url.split('?page=')[1].trim();
         CMS.renderPage(title);
       }
 
@@ -107,13 +139,13 @@ var CMS = {
     }
   },
 
-  renderPage: function (title) {
-    CMS.pages.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
-    CMS.pages.forEach(function (page) {
-      if (page.title == title) {
+  renderPage: function(title) {
+    CMS.pages.sort(function(a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.pages.forEach(function(page) {
+      if (page.title == title.replace(/%20/g, " ")) {
 
-        var tpl = $(document.getElementById('page-template')).html(),
-          $tpl = $(tpl);
+        var tpl = $(document.getElementById('page-template')).html();
+        var $tpl = $(tpl);
 
         $tpl.find('.page-title').html(page.title);
         $tpl.find('.page-content').html(page.contentData);
@@ -124,12 +156,12 @@ var CMS = {
     CMS.renderFooter();
   },
 
-  renderPost: function (id) {
-    CMS.posts.forEach(function (post) {
+  renderPost: function(id) {
+    CMS.posts.forEach(function(post) {
       if (post.id == id) {
 
-        var tpl = $(document.getElementById('post-template')).html(),
-          $tpl = $(tpl);
+        var tpl = $(document.getElementById('post-template')).html();
+        var $tpl = $(tpl);
 
         $tpl.find('.post-title').html(post.title);
         $tpl.find('.post-date').html((post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear());
@@ -141,9 +173,9 @@ var CMS = {
     CMS.renderFooter();
   },
 
-  renderPosts: function () {
-    CMS.posts.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
-    CMS.posts.forEach(function (post) {
+  renderPosts: function() {
+    CMS.posts.sort(function(a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
+    CMS.posts.forEach(function(post) {
       var tpl = $(document.getElementById('post-template')).html();
       var $tpl = $(tpl);
 
@@ -158,14 +190,16 @@ var CMS = {
       var postDate = $tpl.find('.post-date');
       var postSnippet = $tpl.find('.post-content');
 
-      postLink.on('click', function (e) {
+      postLink.on('click', function(e) {
         e.preventDefault();
-        window.location.hash = 'post/' + post.id;
+        window.location.href = CMS.updateUrl('post', post.id);
+        $(window).trigger('hashchange');
       });
 
       $tpl.append('<a href="#">read more...</a>').on('click', function(e) {
         e.preventDefault();
-        window.location.hash = 'post/' + post.id;
+        window.location.href = CMS.updateUrl('post', post.id);
+        $(window).trigger('hashchange');
       });
 
       postLink.html(title);
@@ -384,7 +418,7 @@ var CMS = {
     });
   },
 
-  setNavigation: function () {
+  setNavigation: function() {
 
     var navBuilder = ['<ul>'];
     CMS.settings.siteNavItems.forEach(function (navItem) {
@@ -411,14 +445,15 @@ var CMS = {
     $.each($(document.getElementsByClassName('cms_nav_link')), function (k, link) {
       var title = $(this).attr('id');
       $(this).on('click', function (e) {
-        e.preventDefault();
-        window.location.hash = 'page/' + title;
+          e.preventDefault();
+          window.location.href = CMS.updateUrl('page', title);
+          $(window).trigger('hashchange');
       });
     });
   },
 
   setSiteAttributes: function () {
-    CMS.settings.siteAttributes.forEach(function (attribute) {
+    CMS.settings.siteAttributes.forEach(function(attribute) {
 
       var value;
 
@@ -442,9 +477,15 @@ var CMS = {
       CMS.getFiles(type);
     });
 
+    $('.cms_sitename').on('click', function(e) {
+      e.preventDefault();
+      window.location.href = window.location.origin + window.location.pathname;
+      $(window).trigger('hashchange');
+    });
+
     // Check for hash changes
     $(window).on('hashchange', function () {
-      CMS.render(window.location.hash);
+      CMS.render(window.location.href);
     });
   },
 
