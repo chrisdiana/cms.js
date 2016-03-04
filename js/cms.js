@@ -227,7 +227,7 @@ var CMS = {
       var $tpl = $(tpl);
 
       var title = '<a href="#">' + post.title + '</a>';
-      var date = (post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear();
+      var date = (post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear();
       var snippet = '';
       if(typeof CMS.settings.postSnippetSeparator === 'object' || typeof CMS.settings.postSnippetSeparator === 'string') {
         snippet = post.contentData.split(CMS.settings.postSnippetSeparator)[0];
@@ -381,10 +381,10 @@ var CMS = {
     });
   },
 
-  getFiles: function (type) {
+  getFiles: function(type) {
 
-    var folder = '',
-      url = '';
+    var folder = '';
+    var url = '';
 
     switch(type) {
       case 'post':
@@ -396,8 +396,8 @@ var CMS = {
     }
 
     if (CMS.settings.mode == 'Github') {
-      var gus = CMS.settings.githubUserSettings,
-        gs = CMS.settings.githubSettings;
+      var gus = CMS.settings.githubUserSettings;
+      var gs = CMS.settings.githubSettings;
       url = gs.host + '/repos/' + gus.username + '/' + gus.repo + '/contents/' + folder + '?ref=' + gs.branch;
     } else {
       url = folder;
@@ -406,10 +406,9 @@ var CMS = {
     $.ajax({
       url: url,
       success: function (data) {
-
-        var files = [],
-          linkFiles,
-          dateParser = /\d{4}-\d{2}(?:-d{2})?/; // can parse both 2016-01 and 2016-01-01
+        var files = [];
+        var linkFiles;
+        var dateParser = /\d{4}-\d{2}(?:-\d{2})?/; // can parse both 2016-01 and 2016-01-01
 
         if (CMS.settings.mode == 'Github') {
           linkFiles = data;
@@ -419,8 +418,8 @@ var CMS = {
 
         $(linkFiles).each(function (k, f) {
 
-          var filename,
-            downloadLink;
+          var filename;
+          var downloadLink;
 
           if (CMS.settings.mode == 'Github') {
             filename = f.name;
@@ -441,8 +440,8 @@ var CMS = {
 
         });
 
-        var counter = 0,
-          numFiles = files.length;
+        var counter = 0;
+        var numFiles = files.length;
 
         if (numFiles > 0) {
           for (var file of files) {
