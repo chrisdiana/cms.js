@@ -3,46 +3,118 @@ layout: post
 title: Another Example post
 ---
 
-This post has both types of H2 headers markdown allows, uses `<!-- more -->` as a snippet
-separator, and has Windows line ending.
+This post uses `<!-- more -->` as a snippet separator, Windows line ending, and is filled with as
+many markdown examples as could be found.
 
 <!--more-->
 
-## A H2 Header
+A First Level Header
+====================
 
-Pellentesque accumsan diam a pharetra pretium. Suspendisse scelerisque euismod odio, pulvinar
-fermentum magna consectetur eget. Aliquam tempus, est in sollicitudin tincidunt, mi turpis feugiat
-tortor, non convallis odio lectus id risus. Sed dictum tristique leo nec lobortis. Integer dictum
-risus eget rhoncus eleifend. Aenean mi nisi, eleifend id tincidunt quis, mattis non libero. Nam dui
-lectus, ultricies vitae bibendum nec, consequat et arcu. Nunc fringilla accumsan turpis a feugiat.
-Cras rhoncus, dui eget dignissim interdum, dui nisl pellentesque ante, et commodo sem ligula at
-nisi. Donec eget varius ipsum. Nullam et lorem mattis, tempus augue vitae, facilisis justo.
-Pellentesque dignissim ex quis consequat euismod. Integer in fringilla nunc.
+A Second Level Header
+---------------------
+
+## Another Second Level Header
+
+Now is the time for all good men to come to
+the aid of their country. This is just a
+regular paragraph.
+
+The quick brown fox jumped over the lazy
+dog's back.
+
+### Header 3
+
+> This is a blockquote.
+>
+> This is the second paragraph in the blockquote.
+>
+> ## This is an H2 in a blockquote
+
+Some of these words *are emphasized*.
+Some of these words _are emphasized also_.
+
+Use two asterisks for **strong emphasis**.
+Or, if you prefer, __use two underscores instead__.
+
++   Candy.
++   Gum.
++   Booze.
+
+-   Candy.
+-   Gum.
+-   Booze.
+
+1.  Red
+2.  Green
+3.  Blue
+
+*   A list item.
+
+    With multiple paragraphs.
+
+*   Another item in the list.
+
+This is an [example link](http://example.com/).
+
+This is an [example link](http://example.com/ "With a Title").
+
+I get 10 times more traffic from [Google][1] than from
+[Yahoo][2] or [MSN][3].
+
+[1]: http://google.com/        "Google"
+[2]: http://search.yahoo.com/  "Yahoo Search"
+[3]: http://search.msn.com/    "MSN Search"
+
+I start my morning with a cup of coffee and
+[The New York Times][NY Times].
+
+[ny times]: http://www.nytimes.com/
+
+![alt text](/path/to/img.jpg "Title")
 
 
-The other H2 Header
--------------------
+![alt text][id]
 
-Quisque sodales turpis sit amet metus dictum, sed auctor sapien placerat. Aliquam vitae nisi
-maximus, congue felis vitae, blandit elit. Nunc lobortis sagittis ex sit amet porta. Quisque
-venenatis nulla ut dolor posuere laoreet. Fusce aliquet quis elit vitae scelerisque. Mauris eleifend
-ipsum eu lacus gravida, at vulputate enim condimentum. Phasellus quis lacus dui. Donec ac nibh id
-metus finibus condimentum. Pellentesque habitant morbi tristique senectus et netus et malesuada
-fames ac turpis egestas. Etiam consequat lectus quis urna condimentum, sit amet fringilla ipsum
-venenatis. Suspendisse neque eros, semper mollis eros vitae, blandit rhoncus orci. Fusce sem turpis,
-dignissim mollis diam at, volutpat ultrices enim.
+[id]: /path/to/img.jpg "Title"
 
-Cras vitae vestibulum lorem. Praesent pellentesque ipsum odio, quis mollis elit pretium vitae.
-Curabitur et pulvinar lorem. Quisque ornare, nunc eget mattis aliquam, ante sem lobortis odio, sit
-amet iaculis urna odio non ipsum. Nullam id enim vel turpis luctus pellentesque vitae eget eros.
-Quisque lacinia finibus diam. Morbi sollicitudin mollis urna, ac sollicitudin arcu accumsan laoreet.
-Aliquam at quam vitae velit scelerisque porta. In mollis ornare libero, vel euismod velit hendrerit
-eu. Maecenas dignissim quam ex, eget pulvinar odio ultricies sed. Pellentesque at eleifend urna.
-Vestibulum id congue leo. Vestibulum odio tortor, pretium et velit nec, condimentum pellentesque ex.
+I strongly recommend against using any `<blink>` tags.
 
-Cras id nisl ante. Nullam nisl dui, feugiat finibus ipsum eu, ullamcorper pretium lacus. Nam viverra
-tortor et dui lacinia vestibulum. Donec sit amet aliquam neque, dictum feugiat libero. Morbi
-ultricies consectetur tortor in congue. Suspendisse eget aliquam diam. Nullam vel facilisis sapien.
-Quisque vulputate massa dui, eget pulvinar purus dignissim nec. Curabitur vitae metus dolor. Donec
-pellentesque id leo at consequat. Pellentesque habitant morbi tristique senectus et netus et
-malesuada fames ac turpis egestas.
+I wish SmartyPants used named entities like `&mdash;`
+instead of decimal-encoded entites like `&#8212;`.
+
+If you want your page to validate under XHTML 1.0 Strict,
+you've got to put paragraph tags in your blockquotes:
+
+    <blockquote>
+        <p>For example.</p>
+    </blockquote>
+
+*   Abacus
+    * answer
+*   Bubbles
+    1.  bunk
+    2.  bupkis
+        * BELITTLER
+    3. burper
+*   Cunning
+
+`<code>` spans are delimited
+by backticks.
+
+You can include literal backticks
+like `` `this` ``.
+
+This is a normal paragraph.
+
+    This is a preformatted
+    code block.
+
+---
+
+* * *
+
+- - - -
+
+Roses are red,   
+Violets are blue.
