@@ -66,6 +66,13 @@ $(function() {
     githubSettings: {
       branch: 'gh-pages',
       host: 'https://api.github.com'
+    },
+
+    // To have comments, set up an account at disqus.com. Change enabled to
+    // true and enter the shortname below.
+    disqus: {
+      enabled: true,
+      shortname: 'testingsite23'
     }
 
   });

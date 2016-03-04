@@ -49,12 +49,17 @@ var CMS = {
     githubSettings: {
       branch: 'gh-pages',
       host: 'https://api.github.com'
+    },
+    disqus: {
+      enabled: false,
+      shortname: ''
     }
   },
 
   posts: [],
   pages: [],
   loaded: {},
+  discusLoaded: false,
 
   extend: function (target, opts, callback) {
     var next;
@@ -100,6 +105,39 @@ var CMS = {
       } else {
         return url;
       }
+    }
+  },
+
+  showDisqus: function(config) {
+    if (CMS.discusLoaded) {
+      DISQUS.reset({
+        reload: true,
+        config: function () {
+          this.page.identifier = config.identifier;
+          this.page.url = config.url;
+          this.page.title = config.title;
+        }
+      });
+
+    } else {
+      var body = "var disqus_shortname  = \"" + CMS.settings.disqus.shortname + "\";\n" +
+                 "var disqus_title = \"" + config.title + "\";\n" +
+                 "var disqus_identifier = \"" + config.identifier + "\";\n" +
+                 "var disqus_url = \"" + config.url + "\";\n";
+
+      var dso = document.createElement("script");
+      dso.type = "text/javascript";
+      dso.async = true;
+      dso.text = body;
+      document.getElementsByTagName('body')[0].appendChild(dso);
+
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+
+    CMS.discusLoaded = true;
     }
   },
 
@@ -166,6 +204,15 @@ var CMS = {
         $tpl.find('.post-title').html(post.title);
         $tpl.find('.post-date').html((post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear());
         $tpl.find('.post-content').html(post.contentData);
+        if(CMS.settings.disqus.enabled) {
+          $tpl.find('#disqus_thread').show();
+          var config = {
+            title: 'post: ' + post.title,
+            identifier: post.comments,
+            url: window.location.href.split('#')[0] + window.location.hash.slice(1),
+          };
+          CMS.showDisqus(config);
+        }
 
         CMS.settings.mainContainer.html($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
       }
@@ -243,7 +290,7 @@ var CMS = {
     }
   },
 
-  parseContent: function (content, type, file, counter, numFiles) {
+  parseContent: function(content, type, file, counter, numFiles) {
 
     var data;
     var yamlSeperation = CMS.settings.parseSeperator.exec(content);
@@ -255,7 +302,7 @@ var CMS = {
     contentObj.date = date;
 
     // If null there is no front matter on this page/post.
-    if(yamlSeperation !== null) {
+    if (yamlSeperation !== null) {
       data = content.substr(yamlSeperation.index + 5, content.length);
 
       // Get content info
@@ -269,6 +316,11 @@ var CMS = {
           k = i[0];
 
           val = (k == 'date' ? (new Date(val)) : val);
+
+          // To create a link for disqus comments.
+          if (k === 'title') {
+            contentObj['comments'] = type + '/' + val.trim().replace(/\s/g,'-').toLowerCase();
+          }
 
           contentObj[k] = (val.trim ? val.trim() : val);
         }
@@ -420,6 +472,12 @@ var CMS = {
 
   setNavigation: function() {
 
+    $('.cms_sitename').on('click', function(e) {
+      e.preventDefault();
+      window.location.href = window.location.origin + window.location.pathname;
+      $(window).trigger('hashchange');
+    });
+
     var navBuilder = ['<ul>'];
     CMS.settings.siteNavItems.forEach(function (navItem) {
       if (navItem.hasOwnProperty('href')) {
@@ -475,12 +533,6 @@ var CMS = {
 
     types.forEach(function (type) {
       CMS.getFiles(type);
-    });
-
-    $('.cms_sitename').on('click', function(e) {
-      e.preventDefault();
-      window.location.href = window.location.origin + window.location.pathname;
-      $(window).trigger('hashchange');
     });
 
     // Check for hash changes
