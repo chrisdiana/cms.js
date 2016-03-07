@@ -309,7 +309,7 @@ var CMS = {
 
         var files = [],
           linkFiles,
-          dateParser = /\d{4}-\d{2}(?:-d{2})?/; // can parse both 2016-01 and 2016-01-01
+          dateParser = /\d{4}-\d{2}(?:-\d{2})?/; // can parse both 2016-01 and 2016-01-01
 
         if (CMS.settings.mode == 'Github') {
           linkFiles = data;
