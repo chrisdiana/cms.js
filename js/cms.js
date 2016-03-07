@@ -131,7 +131,7 @@ var CMS = {
           $tpl = $(tpl);
 
         $tpl.find('.post-title').html(post.title);
-        $tpl.find('.post-date').html((post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear());
+        $tpl.find('.post-date').html((post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear());
         $tpl.find('.post-content').html(post.contentData);
 
         CMS.settings.mainContainer.html($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
@@ -147,7 +147,7 @@ var CMS = {
         $tpl = $(tpl);
 
       var title = '<a href="#">' + post.title + '</a>',
-        date = (post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear(),
+        date = (post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear(),
         snippet = post.contentData.split('.')[0] + '.';
 
       var postLink = $tpl.find('.post-title'),
