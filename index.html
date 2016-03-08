@@ -41,13 +41,19 @@
     </article>
   </script>
 
-  <!-- Post View -->
+  <!-- Post List View on Blog Homepage -->
   <script id="post-template" type="x-template">
     <article class="post">
       <h1 class="post-title"></h1>
       <time class="post-date"></time>
       <div class="post-content"></div>
     </article>
+  </script>
+
+  <!-- Post View on Post's Page
+  Remove this and CMS.js will fall back to using the above "post-template" in its place.
+  -->
+  <script id="post-full-template" type="x-template">
   </script>
 
   <!-- Error View -->
