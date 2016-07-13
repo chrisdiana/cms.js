@@ -57,6 +57,9 @@ In Server mode, CMS.js takes advantage of the Server's Directory Indexing featur
 CMS.js sends an AJAX call to your specified folders and looks for Markdown files.
 After they are found, it takes care of everything else and delivers a full website.
 
+## Browser Compatibility
+
+Due to its use of ES6 functions, CMS.js may not be compatible with all browsers. Any browser post 2014 should be sufficient. Versions older than this current commit/pull request suffer a crash in Safari 8 due to a lack of the endsWith() command, part of the ES6 specification. This problem has been fixed with the use of a "polyfill", which performs the same function as the needed component, though the code is located within CMS.js as opposed to inside the browser.
 
 ## Migration from Jekyll
 
