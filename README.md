@@ -5,13 +5,13 @@ that uses plain ol' HTML, CSS and Javascript to generate your website. CMX.js is
 It takes your content, renders Markdown and delivers a complete website in Single-Page
 App fashion...without the aid of server-side scripting (no Node.js, PHP, Ruby, etc.).
 
-## Order 1776
+## One Hour Later...
 
-CMX is now going its' own thing for two reasons:
-   1. All pull requests for CMS.js have not been approved or really noted for somewhere upwards of three months.
-   2. CMS.js has not significantly updated for a while.
+In just the space of an hour, CMX.js has quite a few working and tested features over CMS.js:
 
-I rolled out CMSjs on my website recently and I really, really like it. Unfortunately, it lacked easy sitemap generation support due to its lack of hashbangs and it failed in Safari 8 due to new functions. I've fixed both of these things but they, along with all sorts of other fixes, aren't being committed. CMSjs as it stands is inactive, and so this aims to be a viable successive tool. It's early days but at the very least it will have one user.
+* Custom theme support (with async stylesheet loading and the siteTheme attribute: most Bootswatch files should work out of the box, though may be necessary to get it how you want it to look)
+* Hashbangs for page URLs, a now far more recognised way to showing an AJAX page load which makes life easier for some applications. #! > #.
+* Improved default rapid deployment on any Apache server. Just unzip and you *should* be off to the races.
 
 ## Quick Start
 
