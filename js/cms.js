@@ -1,9 +1,9 @@
 /*
- * CMS.js v1.0.0
- * Copyright 2015 Chris Diana
+ * CMX.js
+ * A fork of CMS.js
+ * CMSjs Copyright 2016 Byron
+ * CMSjs Copyright 2015 Chris Diana
  * www.cdmedia.github.io/cms.js
- * Free to use under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
  */
 'use strict';
 
@@ -251,6 +251,8 @@ var CMS = {
 	getContent: function(type, file, counter, numFiles) {
 
 		var urlFolder = '';
+		var folder = '',
+			url = '';
 
 		switch(type) {
 			case 'post':
