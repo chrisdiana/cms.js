@@ -1,20 +1,20 @@
 {
-  "name": "CMS.js",
+  "name": "CMX.js",
   "version": "1.0.0",
-  "description": "The Javascript Site Generator.",
+  "description": "The Forked Javascript Site Generator.",
   "keywords": "client-side, javascript, site-generator",
-  "homepage": "https://github.com/cdmedia/cms.js",
+  "homepage": "http://cmxjs.byronlk.net",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cdmedia/cms.js.git"
+    "url": "git://github.com/bullpizzle/cmx.js.git"
   },
-  "author": "Chris Diana",
+  "author": "Byron Lewis Kellett (original project: Chris Diana)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cdmedia/cms.js/issues"
+    "url": "https://github.com/bullpizzle/cms.js/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
