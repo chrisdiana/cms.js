@@ -1,4 +1,5 @@
 /*
+ * C M X J S
  * CMX.js
  * A fork of CMS.js
  * CMSjs Copyright 2016 Byron
