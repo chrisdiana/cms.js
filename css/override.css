@@ -1,0 +1,2 @@
+/* CMS.js overrides */
+.cms_sitename img{max-height:32px}.masthead-title{display:block;float:left}.masthead-title a{float:left}.masthead-title small{padding-left:8px}nav{display:block;float:right}nav ul{list-style:none;padding:0}nav ul li{display:inline;padding-left:10px}nav ul li a{font-size:17px}.cms_footer{display:none;padding-bottom:15px}@media (max-width:480px){nav{float:right;width:100%;margin-top:.5rem}nav ul li{padding-left:.5rem}nav ul li:first-child{padding-left:0}nav ul li a{font-size:1rem}}

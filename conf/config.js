@@ -11,6 +11,9 @@ $(function() {
     // Email address
     siteEmail: 'your_email@example.com',
 
+    // Themes
+    siteTheme: 'poole',
+
     // Name
     siteAuthor: 'Your Name',
 
@@ -49,7 +52,7 @@ $(function() {
 
     // Mode 'Github' for Github Pages, 'Server' for Self Hosted. Defaults
     // to Github
-    mode: 'Github',
+    mode: 'Apache',
 
      // If Github mode is set, your Github username and repo name.
     githubUserSettings: {
