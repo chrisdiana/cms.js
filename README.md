@@ -9,6 +9,7 @@ App fashion...without the aid of server-side scripting (no Node.js, PHP, Ruby, e
 
 In just the space of an hour, CMX.js has quite a few working and tested features over CMS.js:
 
+* Client side plugin support.
 * Custom theme support (with async stylesheet loading and the siteTheme attribute: most Bootswatch files should work out of the box, though may be necessary to get it how you want it to look)
 * Hashbangs for page URLs, a now far more recognised way to showing an AJAX page load which makes life easier for some applications. #! > #.
 * Improved default rapid deployment on any Apache server. Just unzip and you *should* be off to the races.
