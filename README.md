@@ -5,7 +5,7 @@ that uses plain ol' HTML, CSS and Javascript to generate your website. CMX.js is
 It takes your content, renders Markdown and delivers a complete website in Single-Page
 App fashion...without the aid of server-side scripting (no Node.js, PHP, Ruby, etc.).
 
-## One Hour Later...
+## Features over CMS.js
 
 In just the space of an hour, CMX.js has quite a few working and tested features over CMS.js:
 
