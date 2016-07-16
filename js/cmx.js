@@ -28,6 +28,7 @@ var CMS = {
 		siteEmail: 'your_email@example.com',
 		siteAuthor: 'Your Name',
 		siteUrl: '',
+        siteTheme: 'poole',
 		siteNavItems: [
 			{ name: 'Github', href: '#', newWindow: false},
 			{ name: 'About' }
@@ -428,7 +429,9 @@ var CMS = {
 	generateSite: function() {
 
 		this.setSiteAttributes();
-
+        
+        $('head').append('<link rel="stylesheet" href="css/' + CMS.settings.siteTheme + '.css" type="text/css" />');
+        
 		var types = ['post', 'page'];
 
 		types.forEach(function(type){
