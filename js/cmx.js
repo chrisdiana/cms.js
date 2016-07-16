@@ -21,7 +21,10 @@ if (!String.prototype.endsWith) {
 }
 
 var CMS = {
-
+	plugins:{},
+    	addPlugin: function (nam) {
+        	$.getScript( "plugins/" + nam + ".cmx.js" ).done(function( script, textStatus ) { var x = __plugin__.meta.short; CMS["plugins"][x] = __plugin__; }).fail(function( jqxhr, settings, exception ) { console.log( exception ); });
+    	},
 	settings: {
 		siteName: 'CMS.js',
 		siteTagline: 'Your site tagline',
