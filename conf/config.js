@@ -11,6 +11,9 @@ $(function() {
     // Email address
     siteEmail: 'your_email@example.com',
 
+    // Themes
+    siteTheme: 'poole',
+
     // Name
     siteAuthor: 'Your Name',
 
