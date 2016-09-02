@@ -48,6 +48,14 @@ var CMS = {
     githubSettings: {
       branch: 'gh-pages',
       host: 'https://api.github.com'
+    },
+    postFilenameDateFormat: /(\d{4})-(\d{2})(?:-(\d{2})(?:_(\d{2})(\d{2}))?)?/,
+    postFilenameDateCaptures: { // capture groups in postFilenameDateFormat regex
+      'year': 1,
+      'month': 2,
+      'day': 3,
+      'hour': 4,
+      'min': 5
     }
   },
 
@@ -80,7 +88,7 @@ var CMS = {
 
       // Main view / Frontpage
       '' : function () {
-          CMS.renderPosts();
+        CMS.renderPosts();
       },
 
       // Post view / single view
@@ -131,7 +139,7 @@ var CMS = {
           $tpl = $(tpl);
 
         $tpl.find('.post-title').html(post.title);
-        $tpl.find('.post-date').html((post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear());
+        $tpl.find('.post-date').html((post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' + post.date.getUTCFullYear());
         $tpl.find('.post-content').html(post.contentData);
 
         CMS.settings.mainContainer.html($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
@@ -147,7 +155,7 @@ var CMS = {
         $tpl = $(tpl);
 
       var title = '<a href="#">' + post.title + '</a>',
-        date = (post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear(),
+        date = (post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' + post.date.getUTCFullYear(),
         snippet = post.contentData.split('.')[0] + '.';
 
       var postLink = $tpl.find('.post-title'),
@@ -216,7 +224,7 @@ var CMS = {
       if (v.length) {
         v.replace(/^\s+|\s+$/g, '').trim();
         var i = v.split(':');
-        var val = v.slice(v.indexOf(':')+1);
+        var val = v.slice(v.indexOf(':') + 1);
         k = i[0];
 
         val = (k == 'date' ? (new Date(val)) : val);
@@ -308,8 +316,7 @@ var CMS = {
       success: function (data) {
 
         var files = [],
-          linkFiles,
-          dateParser = /\d{4}-\d{2}(?:-\d{2})?/; // can parse both 2016-01 and 2016-01-01
+          linkFiles;
 
         if (CMS.settings.mode == 'Github') {
           linkFiles = data;
@@ -331,7 +338,37 @@ var CMS = {
 
           if (filename.split('.').pop() === 'md') {
             var file = {};
-            file.date = new Date(dateParser.test(filename) && dateParser.exec(filename)[0]);
+
+            if (CMS.settings.postFilenameDateFormat.test(filename)) {
+              var extractedDate = CMS.settings.postFilenameDateFormat.exec(filename);
+              var dateString = extractedDate[CMS.settings.postFilenameDateCaptures.year] +
+                '-' + extractedDate[CMS.settings.postFilenameDateCaptures.month];
+
+              if (typeof CMS.settings.postFilenameDateCaptures.day !== 'undefined' &&
+                typeof extractedDate[CMS.settings.postFilenameDateCaptures.day] !== 'undefined') {
+
+                dateString += '-' + extractedDate[CMS.settings.postFilenameDateCaptures.day];
+
+                if (typeof CMS.settings.postFilenameDateCaptures.hour !== 'undefined' &&
+                  typeof extractedDate[CMS.settings.postFilenameDateCaptures.hour] !== 'undefined') {
+
+                  dateString += ' ' + extractedDate[CMS.settings.postFilenameDateCaptures.hour] + ':';
+
+                  if (typeof CMS.settings.postFilenameDateCaptures.min !== 'undefined' &&
+                    typeof extractedDate[CMS.settings.postFilenameDateCaptures.min] !== 'undefined') {
+
+                    dateString += extractedDate[CMS.settings.postFilenameDateCaptures.min];
+                  } else {
+                    dateString += '00';
+                  }
+
+                }
+              }
+
+              file.date = new Date(dateString);
+            } else {
+              file.date = new Date(false);
+            }
             file.name = filename;
             if (downloadLink) {
               file.link = downloadLink;
