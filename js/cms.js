@@ -250,7 +250,7 @@ var CMS = {
     }
 
     // Execute after all content is loaded
-    if (CMS[type + 's'].length === numFiles) {
+    if (counter === numFiles) {
       CMS.contentLoaded(type);
     }
   },
