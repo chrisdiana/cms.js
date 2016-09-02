@@ -87,6 +87,11 @@ var CMS = {
         }
       },
 
+      // Post list if 'page' is the frontpage
+      '#posts' : function () {
+        CMS.renderPosts();
+      },
+
       // Post view / single view
       '#post' : function () {
         var id = url.split('#post/')[1].trim();
