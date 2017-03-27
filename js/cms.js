@@ -80,7 +80,11 @@ var CMS = {
 
       // Main view / Frontpage
       '' : function () {
+        if (typeof CMS.settings.pageAsFrontpage === 'undefined' || CMS.settings.pageAsFrontpage === '') {
           CMS.renderPosts();
+        } else {
+          CMS.renderPage(CMS.settings.pageAsFrontpage);
+        }
       },
 
       // Post view / single view
