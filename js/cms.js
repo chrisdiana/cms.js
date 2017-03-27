@@ -83,7 +83,12 @@ var CMS = {
           CMS.renderPosts();
       },
 
-      // Post view / single view
+      // Posts on Url
+      [CMS.settings.postsOnUrl] : function () {
+        CMS.renderPosts();
+      },
+
+      // Post view
       '#post' : function () {
         var id = url.split('#post/')[1].trim();
         CMS.renderPost(id);
