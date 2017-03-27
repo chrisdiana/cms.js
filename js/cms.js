@@ -27,7 +27,7 @@ var CMS = {
     mainContainer: $(document.getElementsByClassName('cms_main')),
     footerContainer: $(document.getElementsByClassName('cms_footer')),
     footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
-    parseSeperator: '---',
+    parseSeperator: /^---$/m,
     postsOnFrontpage: true,
     pageAsFrontpage: '',
     postsOnUrl: '',
