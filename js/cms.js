@@ -242,7 +242,7 @@ var CMS = {
     }
 
     // Execute after all content is loaded
-    if (counter === numFiles) {
+    if (CMS[type + 's'].length === numFiles) {
       CMS.contentLoaded(type);
     }
   },
