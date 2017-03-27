@@ -70,6 +70,12 @@ var CMS = {
     return target;
   },
 
+  template: function (html) {
+    var el = document.createElement('div');
+    el.innerHTML = html;
+    return el.childNodes[1];
+  },
+
   render: function (url) {
     CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed);
     CMS.settings.footerContainer.hide();
@@ -110,14 +116,12 @@ var CMS = {
     CMS.pages.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
     CMS.pages.forEach(function (page) {
       if (page.title == title) {
+        var tpl = CMS.template(document.getElementById('page-template').innerHTML);
 
-        var tpl = $(document.getElementById('page-template')).html(),
-          $tpl = $(tpl);
+        tpl.childNodes[1].innerHTML = page.title;
+        tpl.childNodes[3].innerHTML = page.contentData;
 
-        $tpl.find('.page-title').html(page.title);
-        $tpl.find('.page-content').html(page.contentData);
-
-        CMS.settings.mainContainer.html($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
+        CMS.settings.mainContainer.html(tpl).hide().fadeIn(CMS.settings.fadeSpeed);
       }
     });
     CMS.renderFooter();
@@ -126,15 +130,13 @@ var CMS = {
   renderPost: function (id) {
     CMS.posts.forEach(function (post) {
       if (post.id == id) {
+        var tpl = CMS.template(document.getElementById('post-template').innerHTML);
 
-        var tpl = $(document.getElementById('post-template')).html(),
-          $tpl = $(tpl);
+        tpl.childNodes[1].innerHTML = post.title;
+        tpl.childNodes[3].innerHTML = (post.date.getMonth() + 1) + '/' + post.date.getDate() + '/' +  post.date.getFullYear();
+        tpl.childNodes[5].innerHTML = post.contentData;
 
-        $tpl.find('.post-title').html(post.title);
-        $tpl.find('.post-date').html((post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear());
-        $tpl.find('.post-content').html(post.contentData);
-
-        CMS.settings.mainContainer.html($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
+        CMS.settings.mainContainer.html(tpl).hide().fadeIn(CMS.settings.fadeSpeed);
       }
     });
     CMS.renderFooter();
@@ -143,26 +145,22 @@ var CMS = {
   renderPosts: function () {
     CMS.posts.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
     CMS.posts.forEach(function (post) {
-      var tpl = $(document.getElementById('post-template')).html(),
-        $tpl = $(tpl);
+      var tpl = CMS.template(document.getElementById('post-template').innerHTML);
 
       var title = '<a href="#">' + post.title + '</a>',
         date = (post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear(),
         snippet = post.contentData.split('.')[0] + '.';
 
-      var postLink = $tpl.find('.post-title'),
-        postDate = $tpl.find('.post-date'),
-        postSnippet = $tpl.find('.post-content');
-
-      postLink.on('click', function (e) {
+      tpl.childNodes[1].onclick = function (e) {
         e.preventDefault();
         window.location.hash = 'post/' + post.id;
-      });
+      }
 
-      postLink.html(title);
-      postSnippet.html(snippet);
-      postDate.html(date);
-      CMS.settings.mainContainer.append($tpl).hide().fadeIn(CMS.settings.fadeSpeed);
+      tpl.childNodes[1].innerHTML = title;
+      tpl.childNodes[3].innerHTML = date;
+      tpl.childNodes[5].innerHTML = snippet;
+
+      CMS.settings.mainContainer.append(tpl).hide().fadeIn(CMS.settings.fadeSpeed);
     });
     CMS.renderFooter();
   },
@@ -175,13 +173,11 @@ var CMS = {
   },
 
   renderError: function (msg) {
-    var tpl = $(document.getElementById('error-template')).html(),
-      $tpl = $(tpl);
+    var tpl = CMS.template(document.getElementById('error-template').innerHTML);
 
-    $tpl.find('.error_text').html(msg);
-
+    tpl.childNodes[3].innerHTML = msg;
     CMS.settings.mainContainer.html('').fadeOut(CMS.settings.fadeSpeed, function () {
-      CMS.settings.mainContainer.html($tpl).fadeIn(CMS.settings.fadeSpeed);
+      CMS.settings.mainContainer.html(tpl).fadeIn(CMS.settings.fadeSpeed);
     });
   },
 
@@ -212,16 +208,16 @@ var CMS = {
     // Get content info
     var infoData = data[1].split(/[\n\r]+/);
 
-    $.each(infoData, function (k, v) {
+    infoData.forEach(function (v) {
       if (v.length) {
         v.replace(/^\s+|\s+$/g, '').trim();
         var i = v.split(':');
         var val = v.slice(v.indexOf(':')+1);
-        k = i[0];
+        infoData = i[0];
 
-        val = (k == 'date' ? (new Date(val)) : val);
+        val = (infoData == 'date' ? (new Date(val)) : val);
 
-        contentObj[k] = (val.trim ? val.trim() : val);
+        contentObj[infoData] = (val.trim ? val.trim() : val);
       }
     });
 
