@@ -110,6 +110,7 @@ var CMS = {
     CMS.pages.sort(function (a, b) { return CMS.settings.sortDateOrder ? b.date - a.date : a.date - b.date; });
     CMS.pages.forEach(function (page) {
       if (page.title == title) {
+        document.title = CMS.settings.siteName + ' - ' + page.title;
 
         var tpl = $(document.getElementById('page-template')).html(),
           $tpl = $(tpl);
@@ -126,10 +127,10 @@ var CMS = {
   renderPost: function (id) {
     CMS.posts.forEach(function (post) {
       if (post.id == id) {
-
+        document.title = CMS.settings.siteName + ' - ' + post.title;
+        
         var tpl = $(document.getElementById('post-template')).html(),
           $tpl = $(tpl);
-
         $tpl.find('.post-title').html(post.title);
         $tpl.find('.post-date').html((post.date.getUTCMonth() + 1) + '/' + post.date.getUTCDate() + '/' +  post.date.getUTCFullYear());
         $tpl.find('.post-content').html(post.contentData);
