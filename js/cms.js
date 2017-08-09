@@ -75,7 +75,6 @@ var CMS = {
     CMS.settings.footerContainer.hide();
 
     var type = url.split('/')[0];
-
     var map = {
 
       // Main view / Frontpage
