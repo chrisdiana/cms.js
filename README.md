@@ -1,4 +1,4 @@
-![CMS.js Logo](https://raw.githubusercontent.com/cdmedia/cms.js/gh-pages/img/logo-md.png)
+![CMS.js Logo](https://raw.githubusercontent.com/chrisdiana/cms.js/gh-pages/img/logo-md.png)
 
 **UPDATES COMING SOON!**
 
@@ -7,13 +7,13 @@ that uses plain ol' HTML, CSS and Javascript to generate your website. CMS.js is
 It takes your content, renders Markdown and delivers a complete website in Single-Page
 App fashion...without the aid of server-side scripting (no Node.js, PHP, Ruby, etc.).
 
-![CMS.js Screenshot](https://raw.githubusercontent.com/cdmedia/cms.js/gh-pages/img/screenshot.png)
+![CMS.js Screenshot](https://raw.githubusercontent.com/chrisdiana/cms.js/gh-pages/img/screenshot.png)
 
 
 
 ## Demo
 
-Check out a working [demo here](http://cdmedia.github.io/cms.js/demo/)
+Check out a working [demo here](http://chrisdiana.github.io/cms.js/demo/)
 
 
 ## Quick Start
@@ -33,12 +33,12 @@ If using server mode, make sure the server's directory indexing feature is enabl
 * Apache - Make sure `htaccess` is enabled OR `Options Indexes` is set for your directory.
 * NGINX - Make sure `autoindex on` is set for your directory
 
-More info on server setup is available on the [wiki](https://github.com/cdmedia/cms.js/wiki/Server-Support-&-Setup)
+More info on server setup is available on the [wiki](https://github.com/chrisdiana/cms.js/wiki/Server-Support-&-Setup)
 
 
 **Install**
 
-1. Clone the repo: `git clone https://github.com/cdmedia/cms.js.git` or download the [latest release](https://github.com/cdmedia/cms.js/releases/latest)
+1. Clone the repo: `git clone https://github.com/chrisdiana/cms.js.git` or download the [latest release](https://github.com/chrisdiana/cms.js/releases/latest)
 2. Configure `js/config.js` to your liking
 3. Make sure to set your `githubUserSettings` in `js/config.js` if using Github mode
 4. If using Github mode, create a new branch from your master or working branch called `gh-pages`
@@ -88,4 +88,4 @@ If you do wish to contribute, please follow the [Airbnb Javascript Style Guide](
 
 ## List of contributors
 
-You can find the list of contributors [here](https://github.com/cdmedia/cms.js/graphs/contributors).
+You can find the list of contributors [here](https://github.com/chrisdiana/cms.js/graphs/contributors).
