@@ -1,25 +1,29 @@
 {
   "name": "CMS.js",
-  "version": "1.0.0",
-  "description": "The Javascript Site Generator.",
+  "version": "2.0.0",
+  "description": "The JavaScript Site Generator.",
   "keywords": "client-side, javascript, site-generator",
-  "homepage": "https://github.com/cdmedia/cms.js",
+  "homepage": "https://github.com/chrisdiana/cms.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "./node_modules/.bin/eslint src/cms.js",
+    "build": "npm run build:min && npm run build:dist",
+    "build:min": "cat ./src/cms.js | ./node_modules/.bin/uglifyjs --compress --comments --mangle | bannerjs -o > dist/cms.min.js",
+    "build:dist": "cp ./src/cms.js ./dist/cms.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cdmedia/cms.js.git"
+    "url": "git://github.com/chrisdiana/cms.js.git"
   },
-  "author": "Chris Diana",
+  "author": {
+    "name": "Chris Diana"
+  },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cdmedia/cms.js/issues"
+    "url": "https://github.com/chrisdiana/cms.js/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.4",
-    "grunt-contrib-copy": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "latest"
+    "bannerjs": "^1.0.5",
+    "eslint": "^5.9.0",
+    "uglify-js": "^3.4.9"
   }
 }
