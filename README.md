@@ -25,10 +25,12 @@ Check out a working [demo here](http://chrisdiana.github.io/cms.js/demo)
 
 CMS.js supports two website modes, Github and Server. Host your website on Github using Github Pages (similar to Jekyll) or use Server mode if you choose to self host your content. Learn more about server mode and setup [here](https://github.com/chrisdiana/cms.js/wiki/Server-Mode).
 
-1. Clone the starter repo: `git clone https://github.com/chrisdiana/cms.js-starter.git` or download the [latest release](https://github.com/chrisdiana/cms.js/releases/latest)
+1. Clone the starter repo: `git clone https://github.com/chrisdiana/cms.js-starter.git` 
+or download the [latest release](https://github.com/chrisdiana/cms.js/releases/latest)
 2. Configure `js/config.js` to your liking
 3. Make sure to set your Github settings in `js/config.js` if using Github mode
-4. If using Github mode, create a new branch from your master or working branch called `gh-pages` (Github's default branch for hosting)
+4. If using Github mode, create a new branch from your master or working branch called `gh-pages` 
+(Github's default branch for hosting)
 5. Visit your site!
 
 
