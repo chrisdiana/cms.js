@@ -34,7 +34,7 @@ CMS.js supports two website modes, Github and Server. Host your website on Githu
 
 ## Themes
 
-Try out CMS.js with a variety of popular CSS frameworks such as Bootstrap, Foundation, and Bulma. Check out all the themes [available here](https://github.com/chrisdiana/cms.js-themes).
+Try out CMS.js with a variety of popular CSS frameworks such as Bootstrap, Foundation, and Bulma. Check out all the themes [available here](https://chrisdiana.github.io/cms.js-themes).
 
 ![CMS.js Themes](./img/themes.png)
 
