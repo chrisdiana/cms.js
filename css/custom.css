@@ -163,7 +163,7 @@ p.intro {
     padding: 15rem 0 19rem;
   }
   .hero {
-    padding: 10rem 0;
+    padding: 10rem 0 14rem 0;
   }
   .hero-heading {
     font-size: 3.0rem;
@@ -179,4 +179,29 @@ p.intro {
   img.screenshot {
     max-width: 500px;
   }
+}
+
+.banner {
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e570e7+0,c85ec7+47,a849a3+100;Pink+3D+%233 */
+background: #e570e7; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #e570e7 0%, #c85ec7 47%, #a849a3 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  box-shadow: 0px 5px 50px 0px #e369e56e;
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+    top: 20px;
+    right: -15px;
+    width: 230px;
+  text-align: center;
+  padding: 5px 0px;
+}
+
+hr.blue-line {
+    border: 3px solid #24c1f2;
+    width: 800px;
+    border-radius: 3px;
+    margin: 0 auto;
 }

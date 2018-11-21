@@ -1,63 +1,48 @@
-$(function() {
+// CMS.js Config
+var config = {
 
-	CMS.init({
+  // ID of element to attach CMS.js to
+  elementId: 'cms',
 
-		// Name of your site
-		siteName: 'CMS.js',
+  // Mode 'GITHUB' for Github Pages, 'SERVER' for Self Hosted
+  // Defaults to Server mode if not specified
+  mode: 'GITHUB',
 
-		// Tagline for your site
-		siteTagline: 'The Javascript Site Generator',
+  // If Github mode is set, your Github username, repo name, 
+  // and branch to get files from
+  github: {
+    username: 'chrisdiana',
+    repo: 'cms.js',
+    branch: 'gh-pages',
+    host: 'https://api.github.com'
+  },
 
-		// Email address
-		siteEmail: 'your_email@example.com',
+  // The name of the layouts directory.
+  layoutDirectory: 'layouts',
 
-		// Name
-		siteAuthor: 'Your Name',
+  // The error layout template name.
+  errorLayout: 'error',
 
-		// Navigation items
-		siteNavItems: [
-			{ name: 'Github', href: 'https://github.com/cdmedia/cms.js', newWindow: true},
-			{ name: 'About'},
-			{ name: 'Links'},
-		],
+  // The URL that will be the default view that will initially load
+  // For example, this could a list view or a could be a specific view
+  // like a single page.
+  defaultView: 'posts',
 
-		// Posts folder name
-		postsFolder: 'demo/posts',
+  // These are the types of content to load. Each type name is a directory or
+  // folder where the files, pages or posts are located. Each type has a list
+  // and single layout template that will determine how the file will be rendered.
+  types: [
+    {
+    // for example, layouts/post-list.html
+    name: 'posts',
+      layout: { list: 'post-list', single: 'post' },
+    },
+    {
+      name: 'pages',
+      layout: { list: 'page-list', single: 'page' },
+    },
+  ],
+};
 
-		// Homepage posts snippet length
-		postSnippetLength: 120,
-
-		// Pages folder name
-		pagesFolder: 'demo/pages',
-
-		// Site fade speed
-		fadeSpeed: 300,
-
-		// Site footer text
-		footerText: '&copy; ' + new Date().getFullYear() + ' All Rights Reserved.',
-
-		// Mode 'Github' for Github Pages, 'Apache' for Apache server
-		mode: 'Github',
-
-		// If Github mode is set, your Github username and repo name. Defaults
-		// to Github pages branch (gh-pages)
-		githubUserSettings: {
-			username: 'cdmedia',
-			repo: 'cms.js'
-		}
-
-	});
-
-	// Markdown settings
-	marked.setOptions({
-		renderer: new marked.Renderer(),
-		gfm: true,
-		tables: true,
-		breaks: false,
-		pedantic: false,
-		sanitize: true,
-		smartLists: true,
-		smartypants: false
-	});
-
-});
+// Initialize CMS.js
+var blog = new CMS(config);
