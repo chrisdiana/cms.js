@@ -29,7 +29,7 @@ CMS.js supports two website modes, Github and Server. Host your website on Githu
 2. Configure `js/config.js` to your liking
 3. Make sure to set your Github settings in `js/config.js` if using Github mode
 4. If using Github mode, create a new branch from your master or working branch called `gh-pages` (Github's default branch for hosting)
-5. Visit your site! (which should be located at https://yourusername.github.io/cms.js-starter)
+5. Visit your site! (which should be located at `https://yourusername.github.io/cms.js-starter`)
 
 
 ## Themes
