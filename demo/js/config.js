@@ -9,12 +9,14 @@ var config = {
   mode: 'GITHUB',
 
   // If Github mode is set, your Github username, repo name, 
-  // and branch to get files from
+  // and branch to get files from. 
   github: {
     username: 'chrisdiana',
     repo: 'cms.js',
     branch: 'gh-pages',
-    host: 'https://api.github.com'
+    host: 'https://api.github.com',
+    // Use prefix option if your site is located in a subdirectory.
+    prefix: 'demo',
   },
 
   // The name of the layouts directory.
