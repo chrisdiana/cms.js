@@ -102,4 +102,4 @@ var config = {
 };
 
 // Initialize CMS.js
-var blog = new CMS(config);
+var blog = CMS(config);

@@ -5,10 +5,19 @@
   "keywords": "client-side, javascript, site-generator",
   "homepage": "https://github.com/chrisdiana/cms.js",
   "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "dev": "npm-run-all --parallel start watch",
+    "start": "serve ./",
     "lint": "./node_modules/.bin/eslint src/cms.js",
-    "build": "npm run build:min && npm run build:dist",
-    "build:min": "cat ./src/cms.js | ./node_modules/.bin/uglifyjs --compress --comments --mangle | bannerjs -o > dist/cms.min.js",
-    "build:dist": "cp ./src/cms.js ./dist/cms.js"
+    "bbuild": "npm run build:min && npm run build:dist",
+    "bbuild:min": "cat ./src/cms.js | ./node_modules/.bin/uglifyjs --compress --comments --mangle | bannerjs -o > dist/cms.min.js",
+    "bbuild:dist": "cp ./src/cms.js ./dist/cms.js",
+    "bdev": "NODE_ENV=production ./node_modules/.bin/rollup -c -w",
+    "breload": "./node_modules/.bin/livereload ./",
+    "bwatch": "npm-run-all --parallel reload dev",
+    "adev": "./node_modules/.bin/rollup src/index.js --format iife --name 'CMS' --file dist/cms.js -w",
+    "abuildnew": "node_modules/.bin/rollup src/index.js --format iife --name 'CMS' --file dist/cms.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +31,16 @@
     "url": "https://github.com/chrisdiana/cms.js/issues"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
     "bannerjs": "^1.0.5",
-    "eslint": "^5.9.0",
-    "uglify-js": "^3.4.9"
+    "npm-run-all": "^4.1.5",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-uglify": "^6.0.0",
+    "serve": "^10.1.1"
   }
 }
