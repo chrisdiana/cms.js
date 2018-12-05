@@ -1,12 +1,17 @@
+import { messages as msg, createMessageContainer, handleMessage } from './messages';
+import { get, isValidFile, renderLayout } from './utils';
+import File from './file';
+
 /**
  * Represents a file collection.
  * @constructor
  * @param {string} type - The type of file collection (i.e. posts, pages).
  * @param {object} layout - The layouts of the file collection type.
  */
-var FileCollection = function(type, layout) {
+var FileCollection = function(type, layout, config) {
   this.type = type;
   this.layout = layout;
+  this.config = config;
   this.files = [];
   this[type] = this.files;
 };
@@ -58,7 +63,7 @@ FileCollection.prototype = {
     var fileElements;
 
     // Github Mode
-    if (config.mode === 'GITHUB') {
+    if (this.config.mode === 'GITHUB') {
       fileElements = JSON.parse(data);
     }
     // Server Mode
@@ -79,13 +84,13 @@ FileCollection.prototype = {
    * @param {function} callback - Callback function
    */
   getFiles: function(callback) {
-    get(this.getFileListUrl(this.type, config), function(success, error) {
+    get(this.getFileListUrl(this.type, this.config), function(success, error) {
       if (error) callback(success, error);
       // find the file elements that are valid files, exclude others
       this.getFileElements(success).forEach(function(file) {
-        var fileUrl = this.getFileUrl(file, config.mode);
-        if (isValidFile(fileUrl, config.extension)) {
-          this.files.push(new File(fileUrl, this.type, this.layout.single));
+        var fileUrl = this.getFileUrl(file, this.config.mode);
+        if (isValidFile(fileUrl, this.config.extension)) {
+          this.files.push(new File(fileUrl, this.type, this.layout.single, this.config));
         }
       }.bind(this));
       callback(success, error);
@@ -171,7 +176,7 @@ FileCollection.prototype = {
    * @returns {string} Rendered layout
    */
   render: function() {
-    return renderLayout(this.layout.list, this);
+    return renderLayout(this.layout.list, this.config, this);
   },
 };
 

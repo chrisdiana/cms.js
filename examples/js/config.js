@@ -44,6 +44,8 @@ var config = {
       layout: { list: 'page-list', single: 'page' },
     },
   ],
+
+  debug: true,
 };
 
 // Initialize CMS.js

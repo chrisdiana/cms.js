@@ -1,3 +1,5 @@
+import { get, extend, formatDate, Markdown, renderLayout } from './utils';
+
 /**
  * Represents a file.
  * @constructor
@@ -5,10 +7,11 @@
  * @param {string} type - The type of file (i.e. posts, pages).
  * @param {object} layout - The layout templates of the file.
  */
-var File = function(url, type, layout) {
+var File = function(url, type, layout, config) {
   this.url = url;
   this.type = type;
   this.layout = layout;
+  this.config = config;
   this.html = false;
   this.content;
   this.name;
@@ -53,7 +56,7 @@ File.prototype = {
    * Overrides post attributes if front matter is available.
    */
   parseFrontMatter: function() {
-    var yaml = this.content.split(config.frontMatterSeperator)[1];
+    var yaml = this.content.split(this.config.frontMatterSeperator)[1];
     if (yaml) {
       var attributes = {};
       yaml.split(/\n/g).forEach(function(attributeStr) {
@@ -72,7 +75,7 @@ File.prototype = {
    * an array by splitting the string by commas.
    */
   setListAttributes: function() {
-    config.listAttributes.forEach(function(attribute) {
+    this.config.listAttributes.forEach(function(attribute) {
       if (this.hasOwnProperty(attribute) && this[attribute]) {
         this[attribute] = this[attribute].split(',').map(function(item) {
           return item.trim();
@@ -88,7 +91,7 @@ File.prototype = {
   setFilename: function() {
     this.name = this.url.substr(this.url.lastIndexOf('/'))
       .replace('/', '')
-      .replace(config.extension, '');
+      .replace(this.config.extension, '');
   },
 
   /**
@@ -107,7 +110,7 @@ File.prototype = {
    * in the front matter.
    */
   setDate: function() {
-    var dateRegEx = new RegExp(config.dateParser);
+    var dateRegEx = new RegExp(this.config.dateParser);
     if (this.date) {
       this.datetime = new Date(this.date);
       this.date = formatDate(this.date);
@@ -126,14 +129,14 @@ File.prototype = {
    */
   setBody: function() {
     var html = this.content
-      .split(config.frontMatterSeperator)
+      .split(this.config.frontMatterSeperator)
       .splice(2)
-      .join(config.frontMatterSeperator);
+      .join(this.config.frontMatterSeperator);
     if (this.html) {
       this.body = html;
     } else {
-      if (config.markdownEngine) {
-        this.body = config.markdownEngine(html);
+      if (this.config.markdownEngine) {
+        this.body = this.config.markdownEngine(html);
       } else {
         var md = new Markdown();
         this.body = md.render(html);
@@ -162,7 +165,7 @@ File.prototype = {
    * @async
    */
   render: function() {
-    return renderLayout(this.layout, this);
+    return renderLayout(this.layout, this.config, this);
   },
 };
 

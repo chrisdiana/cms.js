@@ -1,3 +1,5 @@
+let container;
+
 /**
  * Templating function that renders HTML templates.
  * @function
@@ -144,8 +146,10 @@ export function getFunctionName(func) {
  * @returns {boolean} Is valid.
  */
 export function isValidFile(fileUrl, extension) {
-  var ext = fileUrl.split('.').pop();
-  return (ext === extension.replace('.', '') || ext === 'html') ? true : false;
+  if (fileUrl) {
+    var ext = fileUrl.split('.').pop();
+    return (ext === extension.replace('.', '') || ext === 'html') ? true : false;
+  }
 }
 
 /**
@@ -201,14 +205,14 @@ export function loadTemplate(url, data, callback) {
  * @param {string} layout - Filename of layout.
  * @param {object} data - Data passed to template.
  */
-export function renderLayout(layout, data) {
-  container.innerHTML = '';
+export function renderLayout(layout, config, data) {
+  config.container.innerHTML = '';
   var url = [config.layoutDirectory, '/', layout, '.html'].join('');
   loadTemplate(url, data, function(success, error) {
     if (error) {
       handleMessage(msg['LAYOUT_LOAD_ERROR']);
     } else {
-      container.innerHTML = success;
+      config.container.innerHTML = success;
     }
   });
 }
@@ -221,7 +225,7 @@ export function renderLayout(layout, data) {
  */
 export function getGithubUrl(type, gh) {
   var url = [gh.host, 'repos', gh.username, gh.repo, 'contents',
-    type + '?ref=' + config.github.branch];
+    type + '?ref=' + gh.branch];
   if (gh.prefix) url.splice(5, 0, gh.prefix);
   return url.join('/');
 }

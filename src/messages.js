@@ -1,4 +1,6 @@
-export messages = {
+let messageContainer;
+
+const messages = {
   NO_FILES_ERROR: 'ERROR: No files in directory',
   ELEMENT_ID_ERROR: 'ERROR: No element ID or ID incorrect. Check "elementId" parameter in config.',
   DIRECTORY_ERROR: 'ERROR: Error getting files. Make sure there is a directory for each type in config with files in it.',
@@ -12,7 +14,7 @@ export messages = {
  * @function
  * @param {string} classname - Container classname.
  */
-export function createMessageContainer(classname) {
+function createMessageContainer(classname) {
   messageContainer = document.createElement('div');
   messageContainer.className = classname;
   messageContainer.innerHTML = 'DEBUG';
@@ -30,9 +32,13 @@ export function createMessageContainer(classname) {
  * @description
  * Used for debugging purposes.
  */
-export function handleMessage(debug, message) {
+function handleMessage(debug, message) {
   if (debug) messageContainer.innerHTML = message;
   return message;
 }
 
-export default messages;
+export {
+  messages,
+  createMessageContainer,
+  handleMessage,
+};
