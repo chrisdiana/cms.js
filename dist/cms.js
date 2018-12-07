@@ -74,132 +74,6 @@ var CMS = (function () {
     return new Function('data', 'var output=' + JSON.stringify(text).replace(/<%=(.+?)%>/g, '"+($1)+"').replace(/<%(.+?)%>/g, '";$1\noutput+="') + ';return output;');
   }
   /**
-   * Markdown renderer.
-   * @function
-   * @returns {string} Rendered markdown content as HTML.
-   */
-
-  function Markdown() {
-    this.rules = [{
-      regex: /(#+)(.*)/g,
-      replacement: header
-    }, // headers - fix link anchor tag regex
-    {
-      regex: /!\[([^[]+)\]\(([^)]+)\)/g,
-      replacement: '<img src=\'$2\' alt=\'$1\'>'
-    }, // image
-    {
-      regex: /\[([^[]+)\]\(([^)]+)\)/g,
-      replacement: '<a href=\'$2\'>$1</a>'
-    }, // hyperlink
-    {
-      regex: /(\*\*|__)(.*?)\1/g,
-      replacement: '<strong>$2</strong>'
-    }, // bold
-    {
-      regex: /(\*|_)(.*?)\1/g,
-      replacement: '<em>$2</em>'
-    }, // emphasis
-    {
-      regex: /~~(.*?)~~/g,
-      replacement: '<del>$1</del>'
-    }, // del
-    {
-      regex: /:"(.*?)":/g,
-      replacement: '<q>$1</q>'
-    }, // quote
-    {
-      regex: /```[a-z]*\n[\s\S]*?\n```/g,
-      replacement: blockCode
-    }, // block code
-    {
-      regex: /&&&[a-z]*\n[\s\S]*?\n&&&/g,
-      replacement: jsCode
-    }, // js code - fix
-    {
-      regex: /`(.*?)`/g,
-      replacement: '<code>$1</code>'
-    }, // inline code
-    {
-      regex: /\n\*(.*)/g,
-      replacement: ulList
-    }, // ul lists
-    {
-      regex: /\n[0-9]+\.(.*)/g,
-      replacement: olList
-    }, // ol lists
-    {
-      regex: /\n(&gt;|>)(.*)/g,
-      replacement: blockquote
-    }, // blockquotes
-    {
-      regex: /\n-{5,}/g,
-      replacement: '\n<hr />'
-    }, // horizontal rule
-    {
-      regex: /\n([^\n]+)\n/g,
-      replacement: para
-    }, // add paragraphs
-    {
-      regex: /<\/ul>\s?<ul>/g,
-      replacement: ''
-    }, // fix extra ul
-    {
-      regex: /<\/ol>\s?<ol>/g,
-      replacement: ''
-    }, // fix extra ol
-    {
-      regex: /<\/blockquote><blockquote>/g,
-      replacement: '\n' // fix extra blockquote
-
-    }];
-
-    this.render = function (text) {
-      text = '\n' + text + '\n';
-      this.rules.forEach(function (rule) {
-        text = text.replace(rule.regex, rule.replacement);
-      });
-      return text.trim();
-    };
-
-    function para(text, line) {
-      var trimmed = line.trim();
-
-      if (/^<\/?(ul|ol|li|h|p|bl)/i.test(trimmed)) {
-        return '\n' + line + '\n';
-      }
-
-      return '\n<p>' + trimmed + '</p>\n';
-    }
-
-    function ulList(text, item) {
-      return '\n<ul>\n\t<li>' + item.trim() + '</li>\n</ul>';
-    }
-
-    function olList(text, item) {
-      return '\n<ol>\n\t<li>' + item.trim() + '</li>\n</ol>';
-    }
-
-    function blockquote(text, tmp, item) {
-      return '\n<blockquote>' + item.trim() + '</blockquote>';
-    }
-
-    function jsCode(text) {
-      text = text.replace(/```/gm, '');
-      return '<script type="text/javascript">' + text.trim() + '</script>';
-    }
-
-    function blockCode(text) {
-      text = text.replace(/```/gm, '');
-      return '<pre>' + text.trim() + '</pre>';
-    }
-
-    function header(text, chars, content) {
-      var level = chars.length;
-      return '<h' + level + '>' + content.trim() + '</h' + level + '>';
-    }
-  }
-  /**
    * AJAX Get utility function.
    * @function
    * @async
@@ -344,6 +218,28 @@ var CMS = (function () {
     return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/');
   }
 
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
   /**
    * Represents a file.
    * @constructor
@@ -352,26 +248,29 @@ var CMS = (function () {
    * @param {object} layout - The layout templates of the file.
    */
 
-  var File = function File(url, type, layout, config) {
-    this.url = url;
-    this.type = type;
-    this.layout = layout;
-    this.config = config;
-    this.html = false;
-    this.content;
-    this.name;
-    this.extension;
-    this.title;
-    this.excerpt;
-    this.date;
-    this.datetime;
-    this.author;
-    this.body;
-    this.permalink;
-    this.tags;
-  };
+  var File =
+  /*#__PURE__*/
+  function () {
+    function File(url, type, layout, config) {
+      _classCallCheck(this, File);
 
-  File.prototype = {
+      this.url = url;
+      this.type = type;
+      this.layout = layout;
+      this.config = config;
+      this.html = false;
+      this.content;
+      this.name;
+      this.extension;
+      this.title;
+      this.excerpt;
+      this.date;
+      this.datetime;
+      this.author;
+      this.body;
+      this.permalink;
+      this.tags;
+    }
     /**
     * Get file content.
     * @method
@@ -381,135 +280,162 @@ var CMS = (function () {
     * Get the file's HTML content and set the file object html
     * attribute to the file content.
     */
-    getContent: function getContent(callback) {
-      get(this.url, function (success, error) {
-        if (error) callback(success, error);
-        this.content = success; // check if the response returns a string instead
-        // of an response object
 
-        if (typeof this.content === 'string') {
-          callback(success, error);
-        }
-      }.bind(this));
-    },
 
-    /**
-     * Parse front matter.
-     * @method
-     * @description
-     * Overrides post attributes if front matter is available.
-     */
-    parseFrontMatter: function parseFrontMatter() {
-      var yaml = this.content.split(this.config.frontMatterSeperator)[1];
+    _createClass(File, [{
+      key: "getContent",
+      value: function getContent(callback) {
+        var _this = this;
 
-      if (yaml) {
-        var attributes = {};
-        yaml.split(/\n/g).forEach(function (attributeStr) {
-          var attribute = attributeStr.split(':');
-          attribute[1] && (attributes[attribute[0].trim()] = attribute[1].trim());
+        get(this.url, function (success, error) {
+          if (error) callback(success, error);
+          _this.content = success; // check if the response returns a string instead
+          // of an response object
+
+          if (typeof _this.content === 'string') {
+            callback(success, error);
+          }
         });
-        extend(this, attributes, null);
       }
-    },
+      /**
+       * Parse front matter.
+       * @method
+       * @description
+       * Overrides post attributes if front matter is available.
+       */
 
-    /**
-     * Set list attributes.
-     * @method
-     * @description
-     * Sets front matter attributes that are specified as list attributes to
-     * an array by splitting the string by commas.
-     */
-    setListAttributes: function setListAttributes() {
-      this.config.listAttributes.forEach(function (attribute) {
-        if (this.hasOwnProperty(attribute) && this[attribute]) {
-          this[attribute] = this[attribute].split(',').map(function (item) {
-            return item.trim();
+    }, {
+      key: "parseFrontMatter",
+      value: function parseFrontMatter() {
+        var yaml = this.content.split(this.config.frontMatterSeperator)[1];
+
+        if (yaml) {
+          var attributes = {};
+          yaml.split(/\n/g).forEach(function (attributeStr) {
+            var attribute = attributeStr.split(':');
+            attribute[1] && (attributes[attribute[0].trim()] = attribute[1].trim());
           });
+          extend(this, attributes, null);
         }
-      }.bind(this));
-    },
-
-    /**
-     * Sets filename.
-     * @method
-     */
-    setFilename: function setFilename() {
-      this.name = this.url.substr(this.url.lastIndexOf('/')).replace('/', '').replace(this.config.extension, '');
-    },
-
-    /**
-     * Sets permalink.
-     * @method
-     */
-    setPermalink: function setPermalink() {
-      this.permalink = ['#', this.type, this.name].join('/');
-    },
-
-    /**
-     * Set file date.
-     * @method
-     * @description
-     * Check if filename has date otherwise use the date
-     * in the front matter.
-     */
-    setDate: function setDate() {
-      var dateRegEx = new RegExp(this.config.dateParser);
-
-      if (this.date) {
-        this.datetime = new Date(this.date);
-        this.date = formatDate(this.date);
-      } else if (dateRegEx.test(this.url)) {
-        this.date = dateRegEx.exec(this.url);
-        this.datetime = new Date(this.date);
-        this.date = formatDate(this.date);
       }
-    },
+      /**
+       * Set list attributes.
+       * @method
+       * @description
+       * Sets front matter attributes that are specified as list attributes to
+       * an array by splitting the string by commas.
+       */
 
-    /**
-     * Set file body.
-     * @method
-     * @description
-     * Sets the body of the file based on content after the front matter.
-     */
-    setBody: function setBody() {
-      var html = this.content.split(this.config.frontMatterSeperator).splice(2).join(this.config.frontMatterSeperator);
+    }, {
+      key: "setListAttributes",
+      value: function setListAttributes() {
+        var _this2 = this;
 
-      if (this.html) {
-        this.body = html;
-      } else {
-        if (this.config.markdownEngine) {
-          this.body = this.config.markdownEngine(html);
+        this.config.listAttributes.forEach(function (attribute) {
+          if (_this2.hasOwnProperty(attribute) && _this2[attribute]) {
+            _this2[attribute] = _this2[attribute].split(',').map(function (item) {
+              return item.trim();
+            });
+          }
+        });
+      }
+      /**
+       * Sets filename.
+       * @method
+       */
+
+    }, {
+      key: "setFilename",
+      value: function setFilename() {
+        this.name = this.url.substr(this.url.lastIndexOf('/')).replace('/', '').replace(this.config.extension, '');
+      }
+      /**
+       * Sets permalink.
+       * @method
+       */
+
+    }, {
+      key: "setPermalink",
+      value: function setPermalink() {
+        this.permalink = ['#', this.type, this.name].join('/');
+      }
+      /**
+       * Set file date.
+       * @method
+       * @description
+       * Check if filename has date otherwise use the date
+       * in the front matter.
+       */
+
+    }, {
+      key: "setDate",
+      value: function setDate() {
+        var dateRegEx = new RegExp(this.config.dateParser);
+
+        if (this.date) {
+          this.datetime = new Date(this.date);
+          this.date = formatDate(this.date);
+        } else if (dateRegEx.test(this.url)) {
+          this.date = dateRegEx.exec(this.url);
+          this.datetime = new Date(this.date);
+          this.date = formatDate(this.date);
+        }
+      }
+      /**
+       * Set file body.
+       * @method
+       * @description
+       * Sets the body of the file based on content after the front matter.
+       */
+
+    }, {
+      key: "setBody",
+      value: function setBody() {
+        var html = this.content.split(this.config.frontMatterSeperator).splice(2).join(this.config.frontMatterSeperator);
+
+        if (this.html) {
+          this.body = html;
         } else {
-          var md = new Markdown();
-          this.body = md.render(html);
+          if (this.config.markdownEngine) {
+            this.body = this.config.markdownEngine(html);
+          } else {
+            var md = new Markdown();
+            this.body = md.render(html);
+          }
         }
       }
-    },
+      /**
+       * Parse file content.
+       * @method
+       * @description
+       * Sets all file attributes and content.
+       */
 
-    /**
-     * Parse file content.
-     * @method
-     * @description
-     * Sets all file attributes and content.
-     */
-    parseContent: function parseContent() {
-      this.setFilename();
-      this.setPermalink();
-      this.parseFrontMatter();
-      this.setListAttributes();
-      this.setDate();
-      this.setBody();
-    },
+    }, {
+      key: "parseContent",
+      value: function parseContent() {
+        this.setFilename();
+        this.setPermalink();
+        this.parseFrontMatter();
+        this.setListAttributes();
+        this.setDate();
+        this.setBody();
+      }
+      /**
+       * Renders file.
+       * @method
+       * @async
+       */
 
-    /**
-     * Renders file.
-     * @method
-     * @async
-     */
-    render: function render() {
-      return renderLayout(this.layout, this.config, this);
-    }
-  };
+    }, {
+      key: "render",
+      value: function render() {
+        return renderLayout(this.layout, this.config, this);
+      }
+    }]);
+
+    return File;
+  }();
 
   /**
    * Represents a file collection.
@@ -693,6 +619,7 @@ var CMS = (function () {
   var routes = {};
   var collections = {};
   var filteredCollections = {};
+  var config;
 
   function Instance(options) {
     /**

@@ -1,19 +1,18 @@
-
 import defaults from './defaults';
 import { messages as msg, createMessageContainer, handleMessage } from './messages';
-import { getFunctionName, 
-  getParameterByName, 
+import { getFunctionName,
+  getParameterByName,
   getPathsWithoutParameters,
-  renderLayout,
-  setContainer } from './utils';
+  renderLayout } from './utils';
 import FileCollection from './filecollection';
 
 
 let ready = false;
-let options;
 const routes = {};
 const collections = {};
 const filteredCollections = {};
+let config;
+
 
 function Instance (options) {
 

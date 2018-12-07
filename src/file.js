@@ -1,4 +1,5 @@
-import { get, extend, formatDate, Markdown, renderLayout } from './utils';
+import { get, extend, formatDate, renderLayout } from './utils';
+import Markdown from './markdown';
 
 /**
  * Represents a file.
@@ -7,26 +8,25 @@ import { get, extend, formatDate, Markdown, renderLayout } from './utils';
  * @param {string} type - The type of file (i.e. posts, pages).
  * @param {object} layout - The layout templates of the file.
  */
-var File = function(url, type, layout, config) {
-  this.url = url;
-  this.type = type;
-  this.layout = layout;
-  this.config = config;
-  this.html = false;
-  this.content;
-  this.name;
-  this.extension;
-  this.title;
-  this.excerpt;
-  this.date;
-  this.datetime;
-  this.author;
-  this.body;
-  this.permalink;
-  this.tags;
-};
-
-File.prototype = {
+class File {
+  constructor(url, type, layout, config) {
+    this.url = url;
+    this.type = type;
+    this.layout = layout;
+    this.config = config;
+    this.html = false;
+    this.content;
+    this.name;
+    this.extension;
+    this.title;
+    this.excerpt;
+    this.date;
+    this.datetime;
+    this.author;
+    this.body;
+    this.permalink;
+    this.tags;
+  }
 
   /**
   * Get file content.
@@ -37,8 +37,8 @@ File.prototype = {
   * Get the file's HTML content and set the file object html
   * attribute to the file content.
   */
-  getContent: function(callback) {
-    get(this.url, function(success, error) {
+  getContent(callback) {
+    get(this.url, (success, error) => {
       if (error) callback(success, error);
       this.content = success;
       // check if the response returns a string instead
@@ -46,8 +46,8 @@ File.prototype = {
       if (typeof this.content === 'string') {
         callback(success, error);
       }
-    }.bind(this));
-  },
+    });
+  }
 
   /**
    * Parse front matter.
@@ -55,17 +55,17 @@ File.prototype = {
    * @description
    * Overrides post attributes if front matter is available.
    */
-  parseFrontMatter: function() {
+  parseFrontMatter() {
     var yaml = this.content.split(this.config.frontMatterSeperator)[1];
     if (yaml) {
       var attributes = {};
-      yaml.split(/\n/g).forEach(function(attributeStr) {
+      yaml.split(/\n/g).forEach((attributeStr) => {
         var attribute = attributeStr.split(':');
         attribute[1] && (attributes[attribute[0].trim()] = attribute[1].trim());
       });
       extend(this, attributes, null);
     }
-  },
+  }
 
   /**
    * Set list attributes.
@@ -74,33 +74,33 @@ File.prototype = {
    * Sets front matter attributes that are specified as list attributes to
    * an array by splitting the string by commas.
    */
-  setListAttributes: function() {
-    this.config.listAttributes.forEach(function(attribute) {
+  setListAttributes() {
+    this.config.listAttributes.forEach((attribute) => {
       if (this.hasOwnProperty(attribute) && this[attribute]) {
-        this[attribute] = this[attribute].split(',').map(function(item) {
+        this[attribute] = this[attribute].split(',').map((item) => {
           return item.trim();
         });
       }
-    }.bind(this));
-  },
+    });
+  }
 
   /**
    * Sets filename.
    * @method
    */
-  setFilename: function() {
+  setFilename() {
     this.name = this.url.substr(this.url.lastIndexOf('/'))
       .replace('/', '')
       .replace(this.config.extension, '');
-  },
+  }
 
   /**
    * Sets permalink.
    * @method
    */
-  setPermalink: function() {
+  setPermalink() {
     this.permalink = ['#', this.type, this.name].join('/');
-  },
+  }
 
   /**
    * Set file date.
@@ -109,7 +109,7 @@ File.prototype = {
    * Check if filename has date otherwise use the date
    * in the front matter.
    */
-  setDate: function() {
+  setDate() {
     var dateRegEx = new RegExp(this.config.dateParser);
     if (this.date) {
       this.datetime = new Date(this.date);
@@ -119,7 +119,7 @@ File.prototype = {
       this.datetime = new Date(this.date);
       this.date = formatDate(this.date);
     }
-  },
+  }
 
   /**
    * Set file body.
@@ -127,7 +127,7 @@ File.prototype = {
    * @description
    * Sets the body of the file based on content after the front matter.
    */
-  setBody: function() {
+  setBody() {
     var html = this.content
       .split(this.config.frontMatterSeperator)
       .splice(2)
@@ -142,7 +142,7 @@ File.prototype = {
         this.body = md.render(html);
       }
     }
-  },
+  }
 
   /**
    * Parse file content.
@@ -150,23 +150,24 @@ File.prototype = {
    * @description
    * Sets all file attributes and content.
    */
-  parseContent: function() {
+  parseContent() {
     this.setFilename();
     this.setPermalink();
     this.parseFrontMatter();
     this.setListAttributes();
     this.setDate();
     this.setBody();
-  },
+  }
 
   /**
    * Renders file.
    * @method
    * @async
    */
-  render: function() {
+  render() {
     return renderLayout(this.layout, this.config, this);
-  },
-};
+  }
+
+}
 
 export default File;

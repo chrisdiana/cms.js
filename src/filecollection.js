@@ -2,6 +2,8 @@ import { messages as msg, createMessageContainer, handleMessage } from './messag
 import { get, isValidFile, renderLayout } from './utils';
 import File from './file';
 
+
+
 /**
  * Represents a file collection.
  * @constructor
