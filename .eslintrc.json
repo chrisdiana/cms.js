@@ -1,28 +1,19 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "ENV": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 5
+    "sourceType": "module"
   },
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "no-unused-vars": 0
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
   }
 }

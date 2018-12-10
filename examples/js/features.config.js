@@ -25,7 +25,7 @@ var config = {
   // Defaults to Server mode if not specified
   mode: 'SERVER',
 
-  // If Github mode is set, your Github username, repo name, 
+  // If Github mode is set, your Github username, repo name,
   // and branch to get files from.
   github: {
     username: 'yourusername',
@@ -38,15 +38,15 @@ var config = {
 
   // The name of the layouts directory.
   layoutDirectory: 'layouts',
-  
+
   // The error layout template name.
   errorLayout: 'error',
-  
+
   // The URL that will be the default view that will initially load
   // For example, this could a list view or a could be a specific view
   // like a single page.
   defaultView: 'posts',
-  
+
   // These are the types of content to load. Each type name is a directory or
   // folder where the files, pages or posts are located. Each type has a list
   // and single layout template that will determine how the file will be rendered.
@@ -61,16 +61,16 @@ var config = {
 	    layout: { list: 'page-list', single: 'page' },
     },
   ],
-  
+
   // Pass in any custom functions or plugins here and access the CMS object.
   plugins: [
   	myPlugin,
   ],
-  
+
   // Customize the markdown engine here. For example, if you choose to use the
   // Marked library just specify the marked function.
   markdownEngine: marked,
-  
+
   // This function will be called once the CMS instance is loaded and ready.
   onload: function() {
     console.log('cms.js ready');
@@ -93,8 +93,9 @@ var config = {
     // Access the loaded plugins like this.
     blog.myPlugin();
   },
+
   onroute: function() {
-  	console.log('view changed')
+  	console.log('view changed');
   },
 
   // Toggle debugging
@@ -102,4 +103,4 @@ var config = {
 };
 
 // Initialize CMS.js
-var blog = new CMS(config);
+var blog = CMS(config);

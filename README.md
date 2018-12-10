@@ -13,7 +13,7 @@ It takes your content, renders Markdown and delivers a complete website in Singl
 * Search, Filtering, Tagging and Sorting
 * Github & Server Mode
 * Extendable Markdown Renderer and Plugins
-* Super small footprint - 8kb minified
+* Super small footprint - 10kb minified
 
 
 ## Demo
@@ -77,7 +77,7 @@ Copy all of your Markdown pages from your Jekyll projects root folder into your 
 
 ## Contributing
 
-All forms of contribution are welcome: bug reports, bug fixes, pull requests and simple suggestions. If you do wish to contribute, please run `npm run lint` before submitting a PR. Thanks!
+All forms of contribution are welcome: bug reports, bug fixes, pull requests and simple suggestions. If you do wish to contribute, please check out the [Contributing Guide](https://github.com/chrisdiana/cms.js/wiki/Contributing-Guide) before making a pull request. Thanks!
 
 
 ## List of contributors

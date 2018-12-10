@@ -8,7 +8,7 @@ var config = {
   // Defaults to Server mode if not specified
   mode: 'SERVER',
 
-  // If Github mode is set, your Github username, repo name, 
+  // If Github mode is set, your Github username, repo name,
   // and branch to get files from.
   github: {
     username: 'yourusername',
@@ -47,4 +47,4 @@ var config = {
 };
 
 // Initialize CMS.js
-var blog = new CMS(config);
+var blog = CMS(config);
