@@ -1,8 +1,7 @@
-import { messages as msg, createMessageContainer, handleMessage } from './messages';
-import { get, isValidFile, renderLayout } from './utils';
+import { messages as msg, handleMessage } from './messages';
+import { renderLayout } from './templater';
+import { get, isValidFile, getGithubUrl } from './utils';
 import File from './file';
-
-
 
 /**
  * Represents a file collection.
@@ -10,15 +9,15 @@ import File from './file';
  * @param {string} type - The type of file collection (i.e. posts, pages).
  * @param {object} layout - The layouts of the file collection type.
  */
-var FileCollection = function(type, layout, config) {
-  this.type = type;
-  this.layout = layout;
-  this.config = config;
-  this.files = [];
-  this[type] = this.files;
-};
+class FileCollection {
 
-FileCollection.prototype = {
+  constructor(type, layout, config) {
+    this.type = type;
+    this.layout = layout;
+    this.config = config;
+    this.files = [];
+    this[type] = this.files;
+  }
 
   /**
    * Initialize file collection.
@@ -26,15 +25,15 @@ FileCollection.prototype = {
    * @async
    * @param {function} callback - Callback function
    */
-  init: function(callback) {
-    this.getFiles(function(success, error) {
+  init(callback) {
+    this.getFiles((success, error) => {
       if (error) handleMessage(msg['DIRECTORY_ERROR']);
-      this.loadFiles(function(success, error) {
+      this.loadFiles((success, error) => {
         if (error) handleMessage(msg['GET_FILE_ERROR']);
         callback();
-      }.bind(this));
-    }.bind(this));
-  },
+      });
+    });
+  }
 
   /**
    * Get file list URL.
@@ -42,9 +41,9 @@ FileCollection.prototype = {
    * @param {string} type - Type of file collection.
    * @returns {string} URL of file list
    */
-  getFileListUrl: function(type, config) {
+  getFileListUrl(type, config) {
     return (config.mode === 'GITHUB') ? getGithubUrl(type, config.github) : type;
-  },
+  }
 
   /**
    * Get file URL.
@@ -52,16 +51,16 @@ FileCollection.prototype = {
    * @param {object} file - File object.
    * @returns {string} File URL
    */
-  getFileUrl: function(file, mode) {
+  getFileUrl(file, mode) {
     return (mode === 'GITHUB') ? file['download_url'] : file.getAttribute('href');
-  },
+  }
 
   /**
    * Get file elements.
    * @param {object} data - File directory or Github data.
    * @returns {array} File elements
    */
-  getFileElements: function(data) {
+  getFileElements(data) {
     var fileElements;
 
     // Github Mode
@@ -77,7 +76,7 @@ FileCollection.prototype = {
       fileElements = [].slice.call(listElement.getElementsByTagName('a'));
     }
     return fileElements;
-  },
+  }
 
   /**
    * Get files from file listing and set to file collection.
@@ -85,19 +84,19 @@ FileCollection.prototype = {
    * @async
    * @param {function} callback - Callback function
    */
-  getFiles: function(callback) {
-    get(this.getFileListUrl(this.type, this.config), function(success, error) {
+  getFiles(callback) {
+    get(this.getFileListUrl(this.type, this.config), (success, error) => {
       if (error) callback(success, error);
       // find the file elements that are valid files, exclude others
-      this.getFileElements(success).forEach(function(file) {
+      this.getFileElements(success).forEach((file) => {
         var fileUrl = this.getFileUrl(file, this.config.mode);
         if (isValidFile(fileUrl, this.config.extension)) {
           this.files.push(new File(fileUrl, this.type, this.layout.single, this.config));
         }
-      }.bind(this));
+      });
       callback(success, error);
-    }.bind(this));
-  },
+    });
+  }
 
   /**
    * Load files and get file content.
@@ -105,11 +104,11 @@ FileCollection.prototype = {
    * @async
    * @param {function} callback - Callback function
    */
-  loadFiles: function(callback) {
+  loadFiles(callback) {
     var promises = [];
     // Load file content
-    this.files.forEach(function(file, i) {
-      file.getContent(function(success, error) {
+    this.files.forEach((file, i) => {
+      file.getContent((success, error) => {
         if (error) callback(success, error);
         promises.push(i);
         file.parseContent();
@@ -117,9 +116,9 @@ FileCollection.prototype = {
         if (this.files.length == promises.length) {
           callback(success, error);
         }
-      }.bind(this));
-    }.bind(this));
-  },
+      });
+    });
+  }
 
   /**
    * Search file collection by attribute.
@@ -128,20 +127,20 @@ FileCollection.prototype = {
    * @param {string} search - Search query.
    * @returns {object} File object
    */
-  search: function(attribute, search) {
-    this[this.type] = this.files.filter(function(file) {
+  search(attribute, search) {
+    this[this.type] = this.files.filter((file) => {
       var attr = file[attribute].toLowerCase().trim();
       return attr.indexOf(search.toLowerCase().trim()) >= 0;
     });
-  },
+  }
 
   /**
    * Reset file collection files.
    * @method
    */
-  resetSearch: function() {
+  resetSearch() {
     this[this.type] = this.files;
-  },
+  }
 
   /**
    * Get files by tag.
@@ -149,15 +148,15 @@ FileCollection.prototype = {
    * @param {string} query - Search query.
    * @returns {array} Files array
    */
-  getByTag: function(query) {
-    this[this.type] = this.files.filter(function(file) {
+  getByTag(query) {
+    this[this.type] = this.files.filter((file) => {
       if (query && file.tags) {
-        return file.tags.some(function(tag) {
+        return file.tags.some((tag) => {
           return tag === query;
         });
       }
     });
-  },
+  }
 
   /**
    * Get file by permalink.
@@ -165,11 +164,11 @@ FileCollection.prototype = {
    * @param {string} permalink - Permalink to search.
    * @returns {object} File object.
    */
-  getFileByPermalink: function(permalink) {
-    return this.files.filter(function(file) {
+  getFileByPermalink(permalink) {
+    return this.files.filter((file) => {
       return file.permalink === permalink;
     })[0];
-  },
+  }
 
   /**
    * Renders file collection.
@@ -177,9 +176,10 @@ FileCollection.prototype = {
    * @async
    * @returns {string} Rendered layout
    */
-  render: function() {
+  render() {
     return renderLayout(this.layout.list, this.config, this);
-  },
-};
+  }
+
+}
 
 export default FileCollection;

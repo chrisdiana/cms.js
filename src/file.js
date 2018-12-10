@@ -1,4 +1,5 @@
-import { get, extend, formatDate, renderLayout } from './utils';
+import { renderLayout } from './templater';
+import { get, extend, formatDate } from './utils';
 import Markdown from './markdown';
 
 /**
@@ -9,6 +10,7 @@ import Markdown from './markdown';
  * @param {object} layout - The layout templates of the file.
  */
 class File {
+
   constructor(url, type, layout, config) {
     this.url = url;
     this.type = type;

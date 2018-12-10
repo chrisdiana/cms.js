@@ -5,7 +5,6 @@
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
-// 'use strict';
-import Instance from './instance';
+import CMS from './cms';
 
-export default Instance;
+export default (options) => new CMS(window, options);

@@ -1,22 +1,3 @@
-let container;
-
-/**
- * Templating function that renders HTML templates.
- * @function
- * @param {string} text - HTML text to be evaluated.
- * @returns {string} Rendered template with injected data.
- */
-export function Templater(text) {
-  return new Function(
-    'data',
-    'var output=' +
-    JSON.stringify(text)
-      .replace(/<%=(.+?)%>/g, '"+($1)+"')
-      .replace(/<%(.+?)%>/g, '";$1\noutput+="') +
-    ';return output;'
-  );
-}
-
 /**
  * AJAX Get utility function.
  * @function
@@ -95,12 +76,12 @@ export function isValidFile(fileUrl, extension) {
  * @returns {string} URL Path
  */
 export function getPathsWithoutParameters() {
-  return window.location.hash.split('/').map(function(path) {
+  return window.location.hash.split('/').map((path) => {
     if (path.indexOf('?') >= 0) {
       path = path.substring(0, path.indexOf('?'));
     }
     return path;
-  }).filter(function(path) { return path !== '#'; });
+  }).filter((path) => { return path !== '#'; });
 }
 
 /**
@@ -120,39 +101,6 @@ export function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-/**
- * Load template from URL.
- * @function
- * @async
- * @param {string} url - URL of template to load.
- * @param {object} data - Data to load into template.
- * @param {function} callback - Callback function
- */
-export function loadTemplate(url, data, callback) {
-  get(url, function(success, error) {
-    if (error) callback(success, error);
-    callback(Templater(success)(data), error);
-  });
-}
-
-/**
- * Renders the layout into the main container.
- * @function renderLayout
- * @async
- * @param {string} layout - Filename of layout.
- * @param {object} data - Data passed to template.
- */
-export function renderLayout(layout, config, data) {
-  config.container.innerHTML = '';
-  var url = [config.layoutDirectory, '/', layout, '.html'].join('');
-  loadTemplate(url, data, function(success, error) {
-    if (error) {
-      handleMessage(msg['LAYOUT_LOAD_ERROR']);
-    } else {
-      config.container.innerHTML = success;
-    }
-  });
-}
 
 /**
  * Get Github URL based on configuration.
@@ -161,8 +109,7 @@ export function renderLayout(layout, config, data) {
  * @returns {string} GIthub URL
  */
 export function getGithubUrl(type, gh) {
-  var url = [gh.host, 'repos', gh.username, gh.repo, 'contents',
-    type + '?ref=' + gh.branch];
+  var url = [gh.host, 'repos', gh.username, gh.repo, 'contents', type + '?ref=' + gh.branch];
   if (gh.prefix) url.splice(5, 0, gh.prefix);
   return url.join('/');
 }

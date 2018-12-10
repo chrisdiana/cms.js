@@ -4,7 +4,6 @@ import babel from 'rollup-plugin-babel';
 import { eslint } from 'rollup-plugin-eslint';
 import { uglify } from 'rollup-plugin-uglify';
 
-
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
@@ -16,9 +15,9 @@ export default {
 	},
 	plugins: [
 		resolve(),
-    eslint(),
     babel({ exclude: 'node_modules/**' }),
-    livereload(),
+    eslint(),
+    !production && livereload(),
 		production && uglify()
 	]
 };
