@@ -15,6 +15,7 @@ class CMS {
     this.ready = false;
     this.collections = {};
     this.filteredCollections = {};
+    this.state;
     this.view = view;
     this.config = Object.assign({}, defaults, options);
     this.init();
@@ -40,13 +41,13 @@ class CMS {
         // setup file collections
         this.initFileCollections(() => {
           // check for hash changes
-          this.view.addEventListener("hashchange", this.route.bind(this), false);
+          this.view.addEventListener('hashchange', this.route.bind(this), false);
           // start router by manually triggering hash change
           this.view.dispatchEvent(new HashChangeEvent('hashchange'));
           // register plugins and run onload events
           this.ready = true;
           this.registerPlugins();
-          this.config.onload()
+          this.config.onload();
         });
       } else {
         handleMessage(this.config.debug, msg['ELEMENT_ID_ERROR']);
@@ -95,6 +96,8 @@ class CMS {
 
     const query = getParameterByName('query') || '';
     const tag = getParameterByName('tag') || '';
+
+    this.state = window.location.hash.substr(1);
 
     // Default view
     if (!type) {

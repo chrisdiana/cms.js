@@ -4,20 +4,22 @@ import babel from 'rollup-plugin-babel';
 import { eslint } from 'rollup-plugin-eslint';
 import { uglify } from 'rollup-plugin-uglify';
 
+const { name, version, license, author, homepage } = require('./package.json');
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
 	input: 'src/main.js',
 	output: {
-    file: 'dist/cms.js',
+    file: production ? 'dist/cms.min.js' : 'dist/cms.js',
     name: 'CMS',
     format: 'iife',
+    banner: `/*! ${name} v${version} | ${license} (c) ${new Date().getFullYear()} ${author.name} | ${homepage} */`,
 	},
 	plugins: [
+		eslint(),
+		!production && livereload(),
 		resolve(),
     babel({ exclude: 'node_modules/**' }),
-    eslint(),
-    !production && livereload(),
-		production && uglify()
-	]
+    production && uglify({ output: { comments: /^!/ } })
+	],
 };
