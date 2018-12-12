@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
+
+before_script:
+  - npm i
+
+script:
+  - npm run build
+
+branches:
+  only:
+    - develop
