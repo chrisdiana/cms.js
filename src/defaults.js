@@ -7,16 +7,19 @@ const defaults = {
   github: null,
   types: [],
   plugins: [],
-  frontMatterSeperator: '---',
+  frontMatterSeperator: /^---$/m,
   listAttributes: ['tags'],
   dateParser: /\d{4}-\d{2}(?:-\d{2})?/,
+  dateFormat: (date) => {
+    return [(date.getMonth() + 1), date.getDate(), date.getFullYear()].join('/');
+  },
   extension: '.md',
   sort: undefined,
   markdownEngine: null,
   debug: false,
   messageClassName: 'cms-messages',
-  onload: function() {},
-  onroute: function() {},
+  onload: () => {},
+  onroute: () => {},
 };
 
 export default defaults;

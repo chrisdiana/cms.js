@@ -34,9 +34,12 @@ var CMS = (function () {
     github: null,
     types: [],
     plugins: [],
-    frontMatterSeperator: '---',
+    frontMatterSeperator: /^---$/m,
     listAttributes: ['tags'],
     dateParser: /\d{4}-\d{2}(?:-\d{2})?/,
+    dateFormat: function dateFormat(date) {
+      return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join('/');
+    },
     extension: '.md',
     sort: undefined,
     markdownEngine: null,
@@ -209,15 +212,14 @@ var CMS = (function () {
     return url.join('/');
   }
   /**
-   * Formats date string to d/m/yyyy.
+   * Formats date string to datetime
    * @param {string} dateString - Date string to convert.
-   * @returns {string} Formatted date string
+   * @returns {object} Formatted datetime
    */
 
-  function formatDate(dateString) {
-    var date = new Date(dateString);
-    date.setDate(date.getDate() + 1);
-    return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/');
+  function getDatetime(dateStr) {
+    var dt = new Date(dateStr);
+    return new Date(dt.getTime() - dt.getTimezoneOffset() * -60000);
   }
 
   /**
@@ -512,8 +514,8 @@ var CMS = (function () {
        * Set file date.
        * @method
        * @description
-       * Check if filename has date otherwise use the date
-       * in the front matter.
+       * Check if file has date in front matter otherwise use the date
+       * in the filename.
        */
 
     }, {
@@ -522,12 +524,12 @@ var CMS = (function () {
         var dateRegEx = new RegExp(this.config.dateParser);
 
         if (this.date) {
-          this.datetime = new Date(this.date);
-          this.date = formatDate(this.date);
+          this.datetime = getDatetime(this.date);
+          this.date = this.config.dateFormat(this.datetime);
         } else if (dateRegEx.test(this.url)) {
           this.date = dateRegEx.exec(this.url);
-          this.datetime = new Date(this.date);
-          this.date = formatDate(this.date);
+          this.datetime = getDatetime(this.date);
+          this.date = this.config.dateFormat(this.datetime);
         }
       }
       /**
