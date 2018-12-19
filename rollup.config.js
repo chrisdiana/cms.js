@@ -16,7 +16,7 @@ export default {
     banner: `/*! ${name} v${version} | ${license} (c) ${new Date().getFullYear()} ${author.name} | ${homepage} */`,
   },
   plugins: [
-    eslint(),
+    eslint({ throwOnError: true }),
     !production && livereload(),
     resolve(),
     babel({ exclude: 'node_modules/**' }),
