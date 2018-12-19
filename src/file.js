@@ -1,5 +1,5 @@
 import { renderLayout } from './templater';
-import { get, extend, formatDate } from './utils';
+import { get, extend, getDatetime} from './utils';
 import Markdown from './markdown';
 
 /**
@@ -108,18 +108,18 @@ class File {
    * Set file date.
    * @method
    * @description
-   * Check if filename has date otherwise use the date
-   * in the front matter.
+   * Check if file has date in front matter otherwise use the date
+   * in the filename.
    */
   setDate() {
     var dateRegEx = new RegExp(this.config.dateParser);
     if (this.date) {
-      this.datetime = new Date(this.date);
-      this.date = formatDate(this.date);
+      this.datetime = getDatetime(this.date);
+      this.date = this.config.dateFormat(this.datetime);
     } else if (dateRegEx.test(this.url)) {
       this.date = dateRegEx.exec(this.url);
-      this.datetime = new Date(this.date);
-      this.date = formatDate(this.date);
+      this.datetime = getDatetime(this.date);
+      this.date = this.config.dateFormat(this.datetime);
     }
   }
 

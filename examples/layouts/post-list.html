@@ -6,7 +6,7 @@
         <h1 class="post-title">
           <a href="<%= post.permalink %>"><%= post.title %></a>
         </h1>
-        <time class="post-date">5/28/2015</time>
+        <time class="post-date"><%= post.date %></time>
         <div class="post-content">
           <% if(post.excerpt) { %>
             <p><%= post.excerpt %></p>

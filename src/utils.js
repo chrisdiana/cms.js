@@ -115,13 +115,11 @@ export function getGithubUrl(type, gh) {
 }
 
 /**
- * Formats date string to d/m/yyyy.
+ * Formats date string to datetime
  * @param {string} dateString - Date string to convert.
- * @returns {string} Formatted date string
+ * @returns {object} Formatted datetime
  */
-export function formatDate(dateString) {
-  var date = new Date(dateString);
-  date.setDate(date.getDate() + 1);
-  return [date.getDate(),
-    (date.getMonth() + 1),date.getFullYear()].join('/');
+export function getDatetime(dateStr) {
+  var dt = new Date(dateStr);
+  return new Date(dt.getTime() - dt.getTimezoneOffset() * (-60000));
 }
