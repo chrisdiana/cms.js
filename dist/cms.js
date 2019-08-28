@@ -1,4 +1,4 @@
-/*! CMS.js v2.0.0 | MIT (c) 2018 Chris Diana | https://github.com/chrisdiana/cms.js */
+/*! CMS.js v2.0.0 | MIT (c) 2019 Chris Diana | https://github.com/chrisdiana/cms.js */
 (function(l, i, v, e) { v = l.createElement(i); v.async = 1; v.src = '//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; e = l.getElementsByTagName(i)[0]; e.parentNode.insertBefore(v, e)})(document, 'script');
 var CMS = (function () {
   'use strict';
@@ -405,7 +405,7 @@ var CMS = (function () {
     function File(url, type, layout, config) {
       _classCallCheck(this, File);
 
-      this.url = url;
+      this.url = type === 'SERVER' ? type + '/' + url : url;
       this.type = type;
       this.layout = layout;
       this.config = config;
