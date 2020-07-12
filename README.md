@@ -46,7 +46,7 @@ Try out CMS.js with a variety of popular CSS frameworks such as Bootstrap, Found
 
 
 ## Documentation
-Check out the rest of the documentation on how to use configuration settings, options, templates and more at the [Wiki](https://github.com/chrisdiana/cms.js/wiki).
+Check out the rest of the documentation on how to use configuration settings, options, etc. at the [Wiki](https://github.com/chrisdiana/cms.js/wiki).
 
 
 ## How it works
