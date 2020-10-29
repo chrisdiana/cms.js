@@ -11,6 +11,16 @@ It takes your content, renders Markdown and delivers a complete website in Singl
 ![Version](https://img.shields.io/github/package-json/v/chrisdiana/cms.js.svg)
 ![License](https://img.shields.io/github/license/chrisdiana/cms.js.svg)
 
+
+<p align="center">
+  <span>English</span> |
+  <a href="./README-zh.md">简体中文</a>
+</p>
+
+
+[Website](http://chrisdiana.github.io/cms.js/) • [Docs](https://github.com/chrisdiana/cms.js/wiki) • [Newsletter](http://eepurl.com/dN-e3j) • [Demo](http://chrisdiana.github.io/cms.js/demo)
+
+
 ## New Features in Version 2.0
 
 * Zero dependencies
