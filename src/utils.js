@@ -123,3 +123,11 @@ export function getDatetime(dateStr) {
   var dt = new Date(dateStr);
   return new Date(dt.getTime() - dt.getTimezoneOffset() * (-60000));
 }
+
+/**
+ * @param {string} filepath - Full file path including file name.
+ * @returns {string} filename
+ */
+export function getFilenameFromPath(filepath) {
+  return filepath.split('\\').pop().split('/').pop();
+}

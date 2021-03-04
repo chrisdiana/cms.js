@@ -1,6 +1,6 @@
 import { messages as msg, handleMessage } from './messages';
 import { renderLayout } from './templater';
-import { get, isValidFile, getGithubUrl } from './utils';
+import { get, isValidFile, getGithubUrl, getFilenameFromPath } from './utils';
 import File from './file';
 
 /**
@@ -51,8 +51,8 @@ class FileCollection {
    * @param {object} file - File object.
    * @returns {string} File URL
    */
-  getFileUrl(file, mode) {
-    return (mode === 'GITHUB') ? file['download_url'] : file.getAttribute('href');
+  getFileUrl(file, mode, type) {
+    return (mode === 'GITHUB') ? file['download_url'] : `${type}/${getFilenameFromPath(file.getAttribute('href'))}`;
   }
 
   /**
@@ -89,7 +89,7 @@ class FileCollection {
       if (error) callback(success, error);
       // find the file elements that are valid files, exclude others
       this.getFileElements(success).forEach((file) => {
-        var fileUrl = this.getFileUrl(file, this.config.mode);
+        var fileUrl = this.getFileUrl(file, this.config.mode, this.type);
         if (isValidFile(fileUrl, this.config.extension)) {
           this.files.push(new File(fileUrl, this.type, this.layout.single, this.config));
         }

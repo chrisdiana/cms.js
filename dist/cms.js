@@ -1,4 +1,4 @@
-/*! CMS.js v2.0.0 | MIT (c) 2019 Chris Diana | https://github.com/chrisdiana/cms.js */
+/*! CMS.js v2.0.0 | MIT (c) 2021 Chris Diana | https://github.com/chrisdiana/cms.js */
 (function(l, i, v, e) { v = l.createElement(i); v.async = 1; v.src = '//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; e = l.getElementsByTagName(i)[0]; e.parentNode.insertBefore(v, e)})(document, 'script');
 var CMS = (function () {
   'use strict';
@@ -220,6 +220,14 @@ var CMS = (function () {
   function getDatetime(dateStr) {
     var dt = new Date(dateStr);
     return new Date(dt.getTime() - dt.getTimezoneOffset() * -60000);
+  }
+  /**
+   * @param {string} filepath - Full file path including file name.
+   * @returns {string} filename
+   */
+
+  function getFilenameFromPath(filepath) {
+    return filepath.split('\\').pop().split('/').pop();
   }
 
   /**
@@ -650,8 +658,8 @@ var CMS = (function () {
 
     }, {
       key: "getFileUrl",
-      value: function getFileUrl(file, mode) {
-        return mode === 'GITHUB' ? file['download_url'] : file.getAttribute('href');
+      value: function getFileUrl(file, mode, type) {
+        return mode === 'GITHUB' ? file['download_url'] : "".concat(type, "/").concat(getFilenameFromPath(file.getAttribute('href')));
       }
       /**
        * Get file elements.
@@ -693,7 +701,7 @@ var CMS = (function () {
           if (error) callback(success, error); // find the file elements that are valid files, exclude others
 
           _this2.getFileElements(success).forEach(function (file) {
-            var fileUrl = _this2.getFileUrl(file, _this2.config.mode);
+            var fileUrl = _this2.getFileUrl(file, _this2.config.mode, _this2.type);
 
             if (isValidFile(fileUrl, _this2.config.extension)) {
               _this2.files.push(new File(fileUrl, _this2.type, _this2.layout.single, _this2.config));
