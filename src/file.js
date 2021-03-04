@@ -12,7 +12,7 @@ import Markdown from './markdown';
 class File {
 
   constructor(url, type, layout, config) {
-    this.url = url;
+    this.url = type === 'SERVER' ? type + '/' + url : url;
     this.type = type;
     this.layout = layout;
     this.config = config;

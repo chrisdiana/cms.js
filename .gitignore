@@ -2,3 +2,5 @@
 node_modules/*
 release/*
 *.swp
+npm-debug.log
+
