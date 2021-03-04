@@ -413,7 +413,7 @@ var CMS = (function () {
     function File(url, type, layout, config) {
       _classCallCheck(this, File);
 
-      this.url = url;
+      this.url = type === 'SERVER' ? type + '/' + url : url;
       this.type = type;
       this.layout = layout;
       this.config = config;
