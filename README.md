@@ -49,6 +49,14 @@ CMS.js supports two website modes, Github and Server. Host your website on Githu
 5. Visit your site! (which should be located at `https://yourusername.github.io/cms.js-starter`)
 
 
+## CDN
+
+You can also get started using the CDN:
+```
+<script src="https://unpkg.com/@chrisdiana/cmsjs"></script>
+```
+
+
 ## Themes
 
 Try out CMS.js with a variety of popular CSS frameworks such as Bootstrap, Foundation, and Bulma. Check out all the themes [available here](https://chrisdiana.github.io/cms.js-themes).
