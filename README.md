@@ -9,6 +9,7 @@ It takes your content, renders Markdown and delivers a complete website in Singl
 [![Join the chat at https://discord.gg/A2cHjg3](https://img.shields.io/discourse/https/meta.discourse.org/status.svg)](https://discord.gg/A2cHjg3)
 [![Join the chat at https://gitter.im/cms-js/community](https://badges.gitter.im/cms-js/community.svg)](https://gitter.im/cms-js/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![Version](https://img.shields.io/github/package-json/v/chrisdiana/cms.js.svg)
+[![npm version](https://badge.fury.io/js/%40chrisdiana%2Fcmsjs.svg)](https://badge.fury.io/js/%40chrisdiana%2Fcmsjs)
 ![License](https://img.shields.io/github/license/chrisdiana/cms.js.svg)
 
 
@@ -21,7 +22,7 @@ It takes your content, renders Markdown and delivers a complete website in Singl
 [Website](http://chrisdiana.github.io/cms.js/) • [Docs](https://github.com/chrisdiana/cms.js/wiki) • [Newsletter](http://eepurl.com/dN-e3j) • [Demo](http://chrisdiana.github.io/cms.js/demo)
 
 
-## New Features in Version 2.0
+## New Features in Version 2
 
 * Zero dependencies
 * Abstract types

@@ -1,5 +1,4 @@
-/*! CMS.js v2.0.0 | MIT (c) 2021 Chris Diana | https://github.com/chrisdiana/cms.js */
-(function(l, i, v, e) { v = l.createElement(i); v.async = 1; v.src = '//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; e = l.getElementsByTagName(i)[0]; e.parentNode.insertBefore(v, e)})(document, 'script');
+/*! @chrisdiana/cmsjs v2.0.1 | MIT (c) 2021 Chris Diana | https://github.com/chrisdiana/cms.js */
 var CMS = (function () {
   'use strict';
 
@@ -281,9 +280,7 @@ var CMS = (function () {
    * @function
    * @returns {string} Rendered markdown content as HTML.
    */
-  var Markdown =
-  /*#__PURE__*/
-  function () {
+  var Markdown = /*#__PURE__*/function () {
     function Markdown() {
       _classCallCheck(this, Markdown);
 
@@ -407,9 +404,7 @@ var CMS = (function () {
    * @param {object} layout - The layout templates of the file.
    */
 
-  var File =
-  /*#__PURE__*/
-  function () {
+  var File = /*#__PURE__*/function () {
     function File(url, type, layout, config) {
       _classCallCheck(this, File);
 
@@ -603,9 +598,7 @@ var CMS = (function () {
    * @param {object} layout - The layouts of the file collection type.
    */
 
-  var FileCollection =
-  /*#__PURE__*/
-  function () {
+  var FileCollection = /*#__PURE__*/function () {
     function FileCollection(type, layout, config) {
       _classCallCheck(this, FileCollection);
 
@@ -818,9 +811,7 @@ var CMS = (function () {
    * @param {object} options - Configuration options.
    */
 
-  var CMS =
-  /*#__PURE__*/
-  function () {
+  var CMS = /*#__PURE__*/function () {
     function CMS(view, options) {
       _classCallCheck(this, CMS);
 
