@@ -717,6 +717,11 @@ var CMS = (function () {
         var _this3 = this;
 
         var promises = []; // Load file content
+        // prefix url path
+        for (let x = 0; x < this.files.length; x++) {
+            const obj = this.files[x];
+            obj.url = this.type + "/" + obj.url;
+        }
 
         this.files.forEach(function (file, i) {
           file.getContent(function (success, error) {
