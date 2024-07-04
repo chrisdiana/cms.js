@@ -193,7 +193,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', end
   font-weight: bold;
   position: absolute;
     top: 20px;
-    right: -15px;
+    right: 0;
     width: 230px;
   text-align: center;
   padding: 5px 0px;
